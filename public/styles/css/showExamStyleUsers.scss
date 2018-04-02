@@ -1,0 +1,69 @@
+/* Start Disable Overflow-x */
+
+body{
+	overflow-x: hidden !important;
+}
+
+[type="radio"]:not(:checked), [type="radio"]:checked{
+	left: initial;
+}
+
+label{
+	color: white;
+}
+
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after{
+	border: 2px solid #26a69a;
+}
+
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after{
+	background-color: #26a69a;
+}
+
+[type="radio"]:not(:checked)+label:before, [type="radio"]:not(:checked)+label:after{
+	border: 2px solid #26a69a;
+}
+
+form p{
+	text-align: right;
+}
+
+/* End Disable Overflow-x */
+
+/* Start Hide Nav */
+
+nav{
+	.nav-wrapper{
+		.button-collapse{
+			display: none;
+		}
+	}
+	.left{
+		display: none;
+	}
+}
+
+/* End Hide Nav */
+
+/* Start Section Page */
+
+.pageSection{
+	color: white;
+	.row{
+		margin-bottom: 0;
+		.asideLeft{
+			min-height: 100vh;
+			span{
+				float: left;
+				i{
+					font-size: 32px;
+				}
+			}
+			button{
+				margin-top: 25px;
+			}
+		}
+	}
+}
+
+/* End Section Page */

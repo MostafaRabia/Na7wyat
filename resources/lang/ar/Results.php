@@ -1,0 +1,20 @@
+﻿<?php
+return [
+	'Results' => 'الإجابات: ',
+	'Que' => 'السؤال: ',
+	'Ans' => 'الإجابة: ',
+	'resultQue' => 'التصحيح: ',
+	'Success' => 'صح',
+	'Fail' => 'خطأ',
+	'Notes' => 'ملاحظات: ',
+	'Correct' => 'الإجابة الصحيحة: ',
+	'nullCorrect' => '----',
+	'Pending' => 'لم يتم التصحيح بعد.',
+	'successNullCorrect' => 'تم التصحيح.',
+	'getCorrectAns' => 'عدد الاجابات الصحيحة',
+	'getCorrectAnsWithCorrect' => 'عدد الاجابات المتصححة الصحيحة',
+	'getFailAns' => 'عدد الاجابات الخاطئة',
+	'getFailAnsWithCorrect' => 'عدد الاجابات المتصححة الخاطئة',
+	'getPendings' => 'عدد الاجابات الغير متصححة',
+	'Final' => 'الدرجة النهائية',
+];

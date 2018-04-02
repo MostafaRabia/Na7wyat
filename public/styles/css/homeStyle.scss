@@ -1,0 +1,31 @@
+/* Start Section Info */
+
+.infoSection{
+	background-color: rgba(2,2,2,0.2);
+	position: relative;
+	color: white;
+	margin-top: 5px;
+	.infoDiv{
+		min-height: 100vh;
+		img{
+			display: block;
+			margin: 0 auto;
+			height: 15vh;
+		}
+		h4{
+			padding-top: 5px;
+		}
+		.flow-text{
+			a{
+				transition: 0.5s all ease;
+				text-decoration: underline;
+				&:hover{
+					color: white;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
+
+/* End Section Info */

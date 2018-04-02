@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGC,iBAAI,CACH,aAAa,CAAE,CAAC,CAEf,2HAAoC,CACnC,KAAK,CAAE,gBAAgB",
+"sources": ["examPanel.scss"],
+"names": [],
+"file": "examPanel.css"
+}

@@ -1,0 +1,33 @@
+/* Start Disable Overflow-x */
+
+body{
+	overflow-x: hidden !important;
+}
+
+/* End Disable Overflow-x */
+
+/* Start Section Page */
+
+.pageSection{
+	color: white;
+	.row{
+		margin-bottom: 0;
+		.asideLeft{
+			min-height: 100vh;
+			h5{
+				.switch{
+					display: inline;
+				}
+			}
+			.pagination{
+				li{
+					a{
+						color: white;
+					}
+				}
+			}
+		}
+	}
+}
+
+/* End Section Page */

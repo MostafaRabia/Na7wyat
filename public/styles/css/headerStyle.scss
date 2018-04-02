@@ -1,0 +1,158 @@
+/* Start Defaults */
+
+@font-face {
+    font-family: "JF Flat Regular";
+    src: url('../fonts/flat-font/JF-Flat-regular.eot');
+    src: url('../fonts/flat-font/JF-Flat-regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/flat-font/JF-Flat-regular.svg#JF Flat Regular') format('svg'),
+    url('../fonts/flat-font/JF-Flat-regular.woff') format('woff'),
+    url('../fonts/flat-font/JF-Flat-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+	  font-family: "JF Flat Regular";
+    direction: rtl;
+}
+
+/* Start Change Navbar Color */
+
+nav{
+  background-color: rgba(2,2,2,0.2);
+  ul{
+        a{
+            transition: 0.5s all ease;
+            &:hover{
+                background-color: rgba(1,1,1,1);
+            }
+        }
+  }
+}
+
+/* End Change Navbar Color */
+
+.pageSection{
+    position: relative;
+    background-color: rgba(2,2,2,0.2);
+    margin-top: 5px;
+}
+
+/* Start Section Image */
+
+.imageSection{
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../../images/wallpaper.jpg");
+    background-size: cover;
+    position: fixed;
+}
+
+/* End Section Image */
+
+/* Start Section Black */
+
+.blackSection{
+    position: fixed;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: rgba(1,1,1,0.5);
+}
+
+/* End Section Black */
+
+/* Start Loader Section */
+
+.loaderSection{
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  z-index: 999999999;
+  position: fixed;
+  top: 0;
+  .shape{
+      position: relative;
+      margin: 0 auto;
+      top: 40vh;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: transparent;
+      box-shadow: 30px 30px 0 #34495e,
+      30px 30px 0 #2ecc71,
+      -30px 30px 0 #3498db,
+      30px -30px 0 #d35400,
+      -30px -30px 0 #3498db,
+      0px -45px 0 #9b59b6,
+      0px 45px 0 #c0392b,
+      45px 0px 0 #f39c12,
+      -45px 0px 0 #9b59b6;
+      animation: animate 2.5s infinite;
+  }
+  @keyframes animate {
+    0%{
+        box-shadow: 0px 0px 0 #34495e,
+        0px 0px 0 #2ecc71,
+        0px 0px 0 #3498db,
+        0px 0px 0 #d35400,
+        0px 0px 0 #3498db,
+        0px 0px 0 #9b59b6,
+        0px 0px 0 #c0392b,
+        0px 0px 0 #f39c12,
+        0px 0px 0 #9b59b6;
+        transform: rotate(0deg);
+    } 
+    25%{
+        box-shadow: 30px 30px 0 #34495e,
+        30px 30px 0 #2ecc71,
+        -30px 30px 0 #3498db,
+        30px -30px 0 #d35400,
+        -30px -30px 0 #3498db,
+        0px -45px 0 #9b59b6,
+        0px 45px 0 #c0392b,
+        45px 0px 0 #f39c12,
+        -45px 0px 0 #9b59b6;
+        transform: rotate(360deg);
+    }
+    75%{
+        box-shadow: 30px 30px 0 #34495e,
+        30px 30px 0 #2ecc71,
+        -30px 30px 0 #3498db,
+        30px -30px 0 #d35400,
+        -30px -30px 0 #3498db,
+        0px -45px 0 #9b59b6,
+        0px 45px 0 #c0392b,
+        45px 0px 0 #f39c12,
+        -45px 0px 0 #9b59b6;
+        transform: rotate(720deg);
+    }
+    100%{
+        box-shadow: 0px 0px 0 #34495e,
+        0px 0px 0 #2ecc71,
+        0px 0px 0 #3498db,
+        0px 0px 0 #d35400,
+        0px 0px 0 #3498db,
+        0px 0px 0 #9b59b6,
+        0px 0px 0 #c0392b,
+        0px 0px 0 #f39c12,
+        0px 0px 0 #9b59b6;
+        transform: rotate(1240deg);
+    }
+  }
+}
+
+/* End Loader Section */
+
+/* End Defaults */
+
+/* Start Navbar */
+
+nav{
+  position: relative;
+  .side-nav{
+  	direction: ltr;
+  	text-align: right;
+  }
+}
+
+/* End Navbar */

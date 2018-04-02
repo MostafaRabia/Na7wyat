@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,IAAI,CACH,UAAU,CAAE,iBAAiB,CAO9B,YAAY,CACX,KAAK,CAAE,KAAK,CACZ,iBAAI,CACH,aAAa,CAAE,CAAC,CAChB,4BAAU,CACT,UAAU,CAAE,KAAK,CAEhB,uCAAO,CACN,OAAO,CAAE,MAAM,CAKf,6CAAC,CACA,KAAK,CAAE,KAAK",
+"sources": ["Results.scss"],
+"names": [],
+"file": "Results.css"
+}

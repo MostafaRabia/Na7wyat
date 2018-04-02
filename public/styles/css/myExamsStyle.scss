@@ -1,0 +1,40 @@
+/* Start Disable Overflow-x */
+
+body{
+	overflow-x: hidden !important;
+}
+
+/* End Disable Overflow-x */
+
+/* Start Section Page */
+.pageSection{
+	color: white;
+	.row{
+		margin-bottom: 0;
+		.asideLeft{
+			min-height: 100vh;
+			table{
+				tbody{
+					tr{
+						.en{
+							direction: ltr;
+						}
+						td{
+							a{
+								i{
+									transform: rotate(180deg);
+								}
+								color: white;
+							}
+							label{
+								color: white;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+/* End Section Page */

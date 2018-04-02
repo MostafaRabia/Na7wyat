@@ -1,0 +1,5 @@
+@yield('top')
+@include(app('users').'.Header')
+@yield('center')
+@include(app('users').'.Footer')
+@yield('bottom')
