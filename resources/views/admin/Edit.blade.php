@@ -1,6 +1,6 @@
 @extends(app('users').'.Index')
 @section('center')
-{!! Html::style(app('css').'/editQueStyle.css') !!}
+{!! Html::style(app('css').'/createStyle.css') !!}
 {!! Html::script(app('js').'/createJs.min.js') !!}
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -62,6 +62,24 @@
 					      <option value="no" @if($getQue->Exam->isPage==0) selected @endif>{{trans('createExam.No')}}</option>
 					    </select>
 					</div>
+					<div class="input-field col s12 quesToShowSelect">
+						<select name="quesToShowSelect" id="quesToShowSelect">
+					      <option value="" disabled>{{trans('createExam.quesToShowSelect')}}</option>
+					      <option value="yes" @if($getQue->Exam->quesToShow>1) selected @endif>{{trans('createExam.Yes')}}</option>
+					      <option value="no" @if(!isset($getQue->Exam->quesToShow)||$getQue->Exam->quesToShow==1) selected @endif>{{trans('createExam.No')}}</option>
+					    </select>
+					</div>
+					<div class="input-field col s12 quesToShow">
+						<h5>{{trans('createExam.quesToShow')}}</h5>
+						{!! Form::number('quesToShow',$getQue->Exam->quesToShow,['class'=>'validate']) !!}
+					</div>
+					<div class="input-field col s12 back">
+						<select name="back" id="back">
+					      <option value="" disabled>{{trans('createExam.Back')}}</option>
+					      <option value="yes" @if($getQue->Exam->isBack==1) selected @endif>{{trans('createExam.Yes')}}</option>
+					      <option value="no" @if($getQue->Exam->isBack==0) selected @endif>{{trans('createExam.No')}}</option>
+					    </select>
+					</div>
 					<div class="input-field col s12 rand">
 						<select name="rand">
 					      <option value="" disabled>{{trans('createExam.Rand')}}</option>
@@ -80,10 +98,10 @@
 						<h5>{{trans('createExam.Ques')}}</h5>
 						{!! Form::text('ques',$getQue->ques,['class'=>'validate valid']) !!}
 					</div>
-					@for($i=1;$i<=4;$i++)
+					@for($i=1;$i<=8;$i++)
 						@php $Ans = 'ans'.$i; @endphp
 						<div class="input-field col s12 ans">
-							<h5>{{trans('createExam.Ans')}}</h5>
+							<h5>{{trans('createExam.Ans')}} {{$i}}</h5>
 							{!! Form::text('ans'.$i,$getQue->$Ans,['class'=>'validate valid']) !!}
 						</div>
 					@endfor
@@ -91,7 +109,7 @@
 						<h5>{{trans('createExam.Correct')}}</h5>
 						<select name="correct">
 							<option value="" disabled selected>{{trans('createExam.Correct')}}</option>
-							@for($i=1;$i<=4;$i++)
+							@for($i=1;$i<=8;$i++)
 								@php
 									$Ans = 'ans'.$i;
 									$Num = null;

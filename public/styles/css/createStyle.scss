@@ -46,8 +46,11 @@ form p{
 					direction: ltr;
 				}
 			}
-			.time,.rand{
+			.time,.rand,.quesToShow{
 				display: none;
+			}
+			.quesToShowSelect,.back{
+				display: none !important;
 			}
 			.ans{
 				margin-left: -10px;

@@ -14,11 +14,6 @@
         {!! Html::script(app('js').'/materialize.min.js') !!}
         {!! Html::script(app('js').'/headerJs.min.js') !!}
      </head>
-     <script type="text/javascript">
-         @if(session()->has('hi'))
-            alert('hi');
-         @endif
-     </script>
 <body style="overflow: hidden;">
     <!-- Start Section Loader -->
     <section class='loaderSection' id='loaderSection'>

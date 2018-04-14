@@ -61,6 +61,24 @@
 							      <option value="no">{{trans('createExam.No')}}</option>
 							    </select>
 							</div>
+							<div class="input-field col s12 quesToShowSelect" style="display: none;">
+								<select name="quesToShowSelect" id="quesToShowSelect">
+							      <option value="" disabled selected>{{trans('createExam.quesToShowSelect')}}</option>
+							      <option value="yes">{{trans('createExam.Yes')}}</option>
+							      <option value="no">{{trans('createExam.No')}}</option>
+							    </select>
+							</div>
+							<div class="input-field col s12 quesToShow">
+								<h5>{{trans('createExam.quesToShow')}}</h5>
+								{!! Form::number('quesToShow','',['class'=>'validate']) !!}
+							</div>
+							<div class="input-field col s12 back" style="display: none;">
+								<select name="back" id="back">
+							      <option value="" disabled selected>{{trans('createExam.Back')}}</option>
+							      <option value="yes">{{trans('createExam.Yes')}}</option>
+							      <option value="no">{{trans('createExam.No')}}</option>
+							    </select>
+							</div>
 							<div class="input-field col s12 rand">
 								<select name="rand">
 							      <option value="" disabled selected>{{trans('createExam.Rand')}}</option>
@@ -88,9 +106,9 @@
 								<h5>{{trans('createExam.Ques')}}</h5>
 								{!! Form::text('ques','',['class'=>'validate']) !!}
 							</div>
-							@for($i=1;$i<=4;$i++)
+							@for($i=1;$i<=8;$i++)
 								<div class="input-field col s12 ans">
-									<h5>{{trans('createExam.Ans')}}</h5>
+									<h5>{{trans('createExam.Ans')}} {{$i}}</h5>
 									{!! Form::text('ans'.$i,'',['class'=>'validate']) !!}
 								</div>
 							@endfor
@@ -98,7 +116,7 @@
 								<h5>{{trans('createExam.Correct')}}</h5>
 								<select name="correct">
 									<option value="" disabled selected>{{trans('createExam.Correct')}}</option>
-									@for($i=1;$i<=4;$i++)
+									@for($i=1;$i<=8;$i++)
 										<option value="ans{{$i}}.{{$i}}">{{trans('createExam.'.$i)}}</option>
 									@endfor
 								</select>

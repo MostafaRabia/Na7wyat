@@ -20,64 +20,63 @@ class Profile extends Controller
 	public function showEnterExam($Name){
 		$getId = Exams::where('name',$Name)->first();
 		$getPermission = Permission::where('id_exam',$getId->id)->where('id_user',auth()->user()->id_user)->first();
-		$isPage = $getId->isPage;
 		$countQues = Ques::where('id_exam',$getId->id)->count();
-		if ($getPermission->ban==1||$getPermission->finish==1||$getId->avil==0){
+		$getResults = [];
+		if ($getId->isBack==1){
+			$getResults = Results::where('id_exam',$getId->id)->where('question','<=',$getPermission->complete+$getId->quesToShow)->where('question','>',$getPermission->complete)->where('id_user',auth()->user()->id)->take($getId->quesToShow)->get();
+		}
+		if ($getPermission->finish==1){
 			return redirect()->back();
 		}
-		if ($getId->rand==1&&$isPage==0){
-			$getQues = Ques::where('id_exam',$getId->id)->inRandomOrder()->get();
-		}else if ($getId->rand==0&&$isPage==0){
-			$getQues = Ques::where('id_exam',$getId->id)->orderBy('id_que','ASC')->get();
+		if ($getId->avil==0){
+			if ($getPermission->complete<$countQues&&$getPermission->finish==0){}else if ($getPermission->complete==$countQues&&$getPermission->finish==1){
+				return redirect()->back();
+			}else if ($getPermission->complete==0&&count($getResults)==0){
+				return redirect()->back();
+			}
 		}
-		if ($isPage==1&&$getId->rand==0){
-			$getQues = Ques::where('id_exam',$getId->id)->where('id_que',$getPermission->complete+1)->get();
+		if ($getId->rand==0){
+			if ($getId->isPage==1){
+				$getQues = Ques::where('id_exam',$getId->id)->where('id_que','<=',$getPermission->complete+$getId->quesToShow)->where('id_que','>',$getPermission->complete)->take($getId->quesToShow)->get();
+			}else{
+				$getQues = Ques::where('id_exam',$getId->id)->orderBy('id_que','ASC')->get();
+			}
+		}else{
+			$getQues = Ques::where('id_exam',$getId->id)->inRandomOrder()->get();
 		}
 		app()->singleton('Title',function() use ($Name){
 			return $Name.' | '.trans('Titles.nameOfWebSite');
 		});
-		return view(app('users').'.showExamSelect',['getQues'=>$getQues,'name'=>$Name,'getPermission'=>$getPermission,'getId'=>$getId,'countQues'=>$countQues]);
+		return view(app('users').'.showExamSelect',['getQues'=>$getQues,'name'=>$Name,'getPermission'=>$getPermission,'getId'=>$getId,'countQues'=>$countQues,'getResults'=>$getResults]);
 	}
 	public function enterExam(Request $r,$Name){
 		$getId = Exams::where('name',$Name)->first();
 		$isPage = $getId->isPage;
-		$getPermission = Permission::where('id_exam',$getId->id)->where('id_user',auth()->user()->id_user)->first();
 		$getQues = Ques::where('id_exam',$getId->id)->count();
-		if ($isPage==1&&$getPermission->complete<$getQues&&$getPermission->complete!=$getQues-1){
-			Permission::where('id_user',auth()->user()->id_user)->where('id_exam',$getId->id)->update(['complete'=>$getPermission->complete+1]);
-			$Redirect = false;
-		}else if ($isPage==1&&$getPermission->complete==$getQues-1){
-			Permission::where('id_user',auth()->user()->id_user)->where('id_exam',$getId->id)->update(['finish'=>1,'complete'=>$getPermission->complete+1]);
-			$Redirect = true;
-		}else if ($isPage==0){
-			Permission::where('id_user',auth()->user()->id_user)->where('id_exam',$getId->id)->update(['finish'=>1]);
-			$Redirect = true;
-		}
+		$Redirect = false;
 		foreach ($r->all() as $key => $value){
 			if ($key=='_token'){continue;}
 			$explode = explode('_',$key);
+			if ($isPage==1){
+				Permission::where('id_user',auth()->user()->id_user)->where('id_exam',$getId->id)->update(['complete'=>$explode[1]]);
+			}
 			$getQue = Ques::where('id_que',$explode[1])->where('id_exam',$getId->id)->first();
+			$addResult = Results::where('id_exam',$getId->id)->where('question',$explode[1])->where('id_user',auth()->user()->id)->first();
+			if (!$addResult){
+				$addResult = new Results;
+			}
 			if (isset($getQue->correct)){
 				if ($value==$getQue->correct){
 					$Right = 1;
 					$Degree = $getQue->degree;
-				}else if ($value==null){
+				}else{
 					$Right = 0;
 					$Degree = 0;
-				}else{
-					if (auth()->user()->id_user==157327988310773){
-						$Right = 0;
-						$Degree = -50 - $getQue->degree;
-					}else{
-						$Right = 0;
-						$Degree = 0 - $getQue->degree;
-					}
 				}
 			}else{
 				$Right = 2;
 				$Degree = 0;
 			}
-			$addResult = new Results;
 				$addResult->id_exam = $getId->id;
 				$addResult->id_user = auth()->user()->id;
 				$addResult->question = $getQue->id_que;
@@ -86,6 +85,16 @@ class Profile extends Controller
 				$addResult->result = $Right;
 				$addResult->degree = $Degree;
 			$addResult->save();
+		}
+		$getPermission = Permission::where('id_exam',$getId->id)->where('id_user',auth()->user()->id_user)->first();
+		if ($isPage==1&&$getPermission->complete<$getQues&&$getPermission->complete!=$getQues-$getId->quesToShow){
+			$Redirect = false;
+		}else if ($isPage==1&&$getPermission->complete==$getQues){
+			Permission::where('id_user',auth()->user()->id_user)->where('id_exam',$getId->id)->update(['finish'=>1]);
+			$Redirect = true;
+		}else if ($isPage==0){
+			Permission::where('id_user',auth()->user()->id_user)->where('id_exam',$getId->id)->update(['finish'=>1]);
+			$Redirect = true;
 		}
 		if ($Redirect==true){
 			return redirect('results/'.$getId->name);
@@ -96,6 +105,9 @@ class Profile extends Controller
 	public function showResults($Name){
 		$getId = Exams::where('name',$Name)->first();
 		$id = $getId->id;
+		$getPermission = Permission::where('id_exam',$getId->id)->where('id_user',auth()->user()->id_user)->first();
+		$notFinish = 0;
+		if ($getId->isBack==1&&$getPermission->finish==0){$notFinish = 1;}
 		$getResults = Results::where('id_user',auth()->user()->id)->where('id_exam',$id)->paginate(10);
 		$getCorrectAns = Results::where('id_exam',$id)->where('id_user',auth()->user()->id)->where('result',1)->count(); 
 		$getCorrectAnsWithCorrect = Results::where('id_exam',$id)->where('id_user',auth()->user()->id)->where('result',3)->count(); 
@@ -107,15 +119,15 @@ class Profile extends Controller
 		app()->singleton('Title',function(){
 			return trans('Titles.Results');
 		});
-		return view(app('users').'.Results',['getResults'=>$getResults,'getCorrectAns'=>$getCorrectAns,'getCorrectAnsWithCorrect'=>$getCorrectAnsWithCorrect,'getFailAns'=>$getFailAns,'getFailAnsWithCorrect'=>$getFailAnsWithCorrect,'getPendings'=>$getPendings,'getDegreesResults'=>$getDegreesResults,'getDegreesQues'=>$getDegreesQues]);
+		return view(app('users').'.Results',['getResults'=>$getResults,'getCorrectAns'=>$getCorrectAns,'getCorrectAnsWithCorrect'=>$getCorrectAnsWithCorrect,'getFailAns'=>$getFailAns,'getFailAnsWithCorrect'=>$getFailAnsWithCorrect,'getPendings'=>$getPendings,'getDegreesResults'=>$getDegreesResults,'getDegreesQues'=>$getDegreesQues,'notFinish'=>$notFinish]);
 	}
 	public function Back($Name){
 		$getId = Exams::where('name',$Name)->first();
+		if ($getId->isBack==1){}else{return redirect()->back();}
 		$isPage = $getId->isPage;
 		$getPermission = Permission::where('id_exam',$getId->id)->where('id_user',auth()->user()->id_user)->first();
 		if ($isPage==1&&$getPermission->complete!=0){
-			Permission::where('id_user',auth()->user()->id_user)->where('id_exam',$getId->id)->update(['complete'=>$getPermission->complete-1]);
-			$getResult = Results::where('id_exam',$getId->id)->where('id_user',auth()->user()->id)->where('question',$getPermission->complete)->delete();
+			Permission::where('id_user',auth()->user()->id_user)->where('id_exam',$getId->id)->update(['complete'=>$getPermission->complete-$getId->quesToShow]);
 		}
 		return redirect('exam/'.$getId->name);
 	}

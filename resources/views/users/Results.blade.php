@@ -7,6 +7,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="asideLeft col s12 left">
+				@if ($notFinish==1)
+					<h1 style="text-align: center;">{{trans('Results.notFinish')}}</h1>
+				@else
 				<h4>{{trans('Results.Results')}}</h4>
 				<h5>{{trans('Results.getCorrectAns')}}: {{$getCorrectAns}}</h5>
 				<h5>{{trans('Results.getCorrectAnsWithCorrect')}}: {{$getCorrectAnsWithCorrect}}</h5>
@@ -43,11 +46,12 @@
 							<span class="red-text">{{trans('Results.Fail')}}</span>
 						@endif
 					 </h5>
-					<h5>{{trans('adminResults.Degree')}}: @if($Results->degree==0&&$Results->result==2) ---- @else {{$Results->degree}} @endif / {{$Results->Ques->degree}}</h5>
+					<h5>{{trans('adminResults.Degree')}}: @if($Results->degree==0&&$Results->result==2) ---- @else {{$Results->degree}} @endif / {{$getQue->degree}}</h5>
 					 <h5>{{trans('Results.Notes')}} {{$Results->notes}}</h5>
 					 <hr>
 				@endforeach
 				{{$getResults->links()}}
+				@endif
 			</div>
 		</div>
 	</div>

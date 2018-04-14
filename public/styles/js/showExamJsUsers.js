@@ -1,8 +1,13 @@
 $(document).ready(function(){
 	$('.brand-logo').removeAttr('href');
-	if ($('.asideLeft span span').html()==null){}else{
+	$('nav ul').remove();
+	$('nav .button-collapse').remove();
+	if (Cookies.get('time')){
+		$('.asideLeft h4 span span').html(Cookies.get('time'));
+	}
+	if ($('.asideLeft h4 span span').html()==null){}else{
 		var Timer = setInterval(function(){
-			var presentTime = $('.asideLeft span span').html();
+			var presentTime = $('.asideLeft h4 span span').html();
 			var timeArray = presentTime.split(/[:]+/);
 			var m = timeArray[0];
 			var s = checkSecond((timeArray[1] - 1));
@@ -33,4 +38,16 @@ function checkSecond(sec) {
 }
 window.onbeforeunload = function() {
     return "هل إنتهيت من الامتحان ؟";
+}
+function myUnloadHandler(){
+	var hour = new Date(new Date().getTime() + 60 * 60 * 1000);
+	Cookies.remove('time',{path:''});
+	if ($('.asideLeft h4 span span').html()==null){}else{
+		Cookies.set('time',$('.asideLeft h4 span span').html(),{expires:hour,path:''});
+	}
+}
+if ("onpagehide" in window) {
+    window.addEventListener("pagehide", myUnloadHandler, false);
+} else {
+    window.addEventListener("unload", myUnloadHandler, false);
 }

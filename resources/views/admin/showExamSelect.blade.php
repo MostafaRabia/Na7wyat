@@ -18,25 +18,27 @@
 					<h5>{{trans('showExam.Que')}}{{$b}}: {{$Ques->ques}} @if($getId->showDegree==1) <span class="degree">(@if($Ques->degree==1){{trans('showExam.Degree')}}@elseif($Ques->degree==2){{trans('showExam.degreeTwo')}}@elseif($Ques->degree==0){{$Ques->degree}} {{trans('showExam.Degree')}}@elseif($Ques->degree<=10){{$Ques->degree}} {{trans('showExam.degreeThree')}}@elseif($Ques->degree>10){{$Ques->degree}} {{trans('showExam.Degree')}}@endif)</span> @endif</h5>
 					<h5>{{trans('showExam.Ans')}}</h5>
 					@if ($Ques->ans1!=null&&$Ques->ans2!=null)
-						@for($i=1;$i<=4;$i++)
+						@for($c=1;$c<=8;$c++)
 							@php
-								$Ans = 'ans'.$i;
-								$Var[] = $Ques->$Ans;
+								$Ans = 'ans'.$c;
+								if ($Ques->$Ans==null){}else{
+									$Var[] = $Ques->$Ans;
+								}
 							@endphp
 						@endfor
-						@php shuffle($Var); @endphp
+						@php $Var = collect($Var); $Var = $Var->shuffle(); @endphp
 						<div class="input-field">
 						<select name="ans.{{$Ques->id_que}}">
 					      <option value="" selected disabled>اختر الاجابة</option>
 					      <option value=""></option>
 					      <option value="{{$Var[0]}}">{{$Var[0]}}</option>
 					      <option value="{{$Var[1]}}">{{$Var[1]}}</option>
-					      @if($Ques->ans3!=null)
-					      	<option value="{{$Var[2]}}">{{$Var[2]}}</option>
-					      @endif
-					      @if($Ques->ans4!=null)
-					      	<option value="{{$Var[3]}}">{{$Var[3]}}</option>
-					      @endif
+					      @for($n=3;$n<=8;$n++)
+					      	  @php $Ans = 'ans'.$n; @endphp
+						      @if($Ques->$Ans!=null)
+						      	<option value="{{$Var[$n-1]}}">{{$Var[$n-1]}}</option>
+						      @endif
+					      @endfor
 					    </select>
 					    </div>
 					@elseif ($Ques->correct==null)

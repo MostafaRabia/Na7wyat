@@ -17,58 +17,61 @@
 				{!! Form::open(['url'=>'exam/'.$getId->name,'method'=>'post']) !!}
 				@php $i=0; $b=0; @endphp
 				@foreach($getQues as $Ques)
-					@php $i++; $b++; @endphp
-					<h5>{{trans('showExam.Que')}}{{$getPermission->complete+1}}: {{$Ques->ques}} @if($getId->showDegree==1) <span class="degree">(@if($Ques->degree==1){{trans('showExam.Degree')}}@elseif($Ques->degree==2){{trans('showExam.degreeTwo')}}@elseif($Ques->degree==0){{$Ques->degree}} {{trans('showExam.Degree')}}@elseif($Ques->degree<=10){{$Ques->degree}} {{trans('showExam.degreeThree')}}@elseif($Ques->degree>10){{$Ques->degree}} {{trans('showExam.Degree')}}@endif)</span> @endif</h5>
+					@php $b++; $maxID = $Ques->id_que; @endphp
+					<h5>{{trans('showExam.Que')}}{{$getPermission->complete+$b}}: {{$Ques->ques}} @if($getId->showDegree==1) <span class="degree">(@if($Ques->degree==1){{trans('showExam.Degree')}}@elseif($Ques->degree==2){{trans('showExam.degreeTwo')}}@elseif($Ques->degree==0){{$Ques->degree}} {{trans('showExam.Degree')}}@elseif($Ques->degree<=10){{$Ques->degree}} {{trans('showExam.degreeThree')}}@elseif($Ques->degree>10){{$Ques->degree}} {{trans('showExam.Degree')}}@endif)</span> @endif</h5>
 					<h5>{{trans('showExam.Ans')}}</h5>
 					@if ($Ques->ans1!=null&&$Ques->ans2!=null)
-						@for($i=1;$i<=4;$i++)
+						@for($c=1;$c<=8;$c++)
 							@php
-								$Ans = 'ans'.$i;
+								$Ans = 'ans'.$c;
 								if ($Ques->$Ans==null){}else{
 									$Var[] = $Ques->$Ans;
 								}
 							@endphp
 						@endfor
-						@php shuffle($Var); @endphp
+						@php $Var = collect($Var); $Var = $Var->shuffle(); @endphp
 						<div class="input-field">
 						<select name="ans.{{$Ques->id_que}}">
-					      <option value="" selected disabled>اختر الاجابة</option>
+					      <option value="" @if(count($getResults)==0) selected @endif>اختر الاجابة</option>
 					      <option value=""></option>
-					      <option value="{{$Var[0]}}">{{$Var[0]}}</option>
-					      <option value="{{$Var[1]}}">{{$Var[1]}}</option>
-					      @if($Ques->ans3!=null)
-					      	<option value="{{$Var[2]}}">{{$Var[2]}}</option>
-					      @endif
-					      @if($Ques->ans4!=null)
-					      	<option value="{{$Var[3]}}">{{$Var[3]}}</option>
-					      @endif
+					      <option value="{{$Var[0]}}" @if(count($getResults)!=0&&$getResults[$i]->answer==$Var[0]) selected @endif>{{$Var[0]}}</option>
+					      <option value="{{$Var[1]}}" @if(count($getResults)!=0&&$getResults[$i]->answer==$Var[1]) selected @endif>{{$Var[1]}}</option>
+					      @for($n=3;$n<=8;$n++)
+						      @php $Ans = 'ans'.$n; @endphp
+						      @if($Ques->$Ans!=null)
+						      	<option value="{{$Var[$n-1]}}" @if(count($getResults)!=0&&$getResults[$i]->answer==$Var[$n-1]) selected @endif>{{$Var[$n-1]}}</option>
+						      @endif
+					      @endfor
 					    </select>
 					    </div>
 					@elseif ($Ques->correct==null)
-						<textarea id="textarea1" name='ans.{{$Ques->id_que}}' class="materialize-textarea"></textarea>
+						<textarea id="textarea1" name='ans.{{$Ques->id_que}}' class="materialize-textarea">@if(count($getResults)!=0) {{$getResults[$i]->answer}} @endif</textarea>
 					@endif
 					<hr>
-					@php $Var = [];@endphp
+					@php $Var = []; $i++; @endphp
 				@endforeach
-				@if ($getId->isPage==1&&$getPermission->complete<$countQues&&$getPermission->complete!=0&&$getPermission->complete!=$countQues-1)
-					<button class="btn waves-effect waves-light submit" type="submit">
-						{{trans('showExam.Next')}}
-						<i class="material-icons right">send</i>
-					</button>
-					<button class="btn waves-effect waves-light submitBack left" type="submit">
+				@if ($getId->isPage==1)
+					@php $Precent = ($maxID / $countQues) * 100; @endphp
+					<div class="progress" style="width: 50%;margin: 0 auto;">
+						<div class="determinate" style="width: {{$Precent}}%"></div>
+				    </div>
+					@if ($Precent<100)
+						<button class="btn waves-effect waves-light submit" type="submit">
+							{{trans('showExam.Next')}}
+							<i class="material-icons right">send</i>
+						</button>
+					@else
+						<button class="btn waves-effect waves-light submit" type="submit">
+							{{trans('showExam.Finish')}}
+							<i class="material-icons right">send</i>
+						</button>
+					@endif
+					@if ($getId->isBack==1&&$getPermission->complete!=0)
+						<button class="btn waves-effect waves-light submitBack left" type="submit">
 						{{trans('showExam.Back')}}
-						<i class="material-icons left">arrow_back</i>
-					</button>
-				@elseif ($getId->isPage==1&&$getPermission->complete<$countQues&&$getPermission->complete==0)
-					<button class="btn waves-effect waves-light submit" type="submit">
-						{{trans('showExam.Next')}}
-						<i class="material-icons right">send</i>
-					</button>
-				@elseif ($getId->isPage==1&&$getPermission->complete==$countQues-1)
-					<button class="btn waves-effect waves-light submit" type="submit">
-						{{trans('showExam.Finish')}}
-						<i class="material-icons right">send</i>
-					</button>
+							<i class="material-icons left">arrow_back</i>
+						</button>
+					@endif
 				@elseif ($getId->isPage==0)
 					<button class="btn waves-effect waves-light submit" type="submit">
 						{{trans('showExam.Finish')}}

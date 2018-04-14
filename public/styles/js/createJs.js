@@ -4,10 +4,18 @@ $(document).ready(function(){
 	}else{
 		$('.time').hide();
 	}
-	if ($('#page').val()=="no"){
-		$('.rand').css('display','block');
-	}else{
-		$('.rand').hide();
+	if ($('#page').val()=="yes"){
+		$('.rand').css('display','none');
+		$(".quesToShowSelect").css("cssText", "display: block !important;");
+		if ($('#quesToShowSelect').val()=="yes"){
+			$('.quesToShow').css('display','block');
+		}
+		$(".back").css("cssText", "display: block !important;");
+	}else if ($('#page').val()=="no"){
+		$(".rand").css("cssText", "display: block !important;");
+		$('.quesToShowSelect').css('display','none');
+		$('.quesToShow').hide();
+		$('.back').css('display','none');
 	}
 	$('.datepicker').pickadate();
 	$('.timepicker').pickatime({ampmclickable:false,twelvehour:false});
@@ -36,10 +44,25 @@ $(document).ready(function(){
 		}
 	});
 	$('#page').on('change',function(){
-		if ($(this).val()=="no"){
-			$('.rand').css('display','block');
+		if ($(this).val()=="yes"){
+			$('.rand').css('display','none');
+			$(".quesToShowSelect").css("cssText", "display: block !important;");
+			if ($('#quesToShowSelect').val()=="yes"){
+				$('.quesToShow').css('display','block');
+			}
+			$(".back").css("cssText", "display: block !important;");
 		}else{
-			$('.rand').hide();
+			$('.rand').css('display','block');
+			$('.quesToShowSelect').css('display','none');
+			$('.quesToShow').hide();
+			$('.back').css('display','none');
+		}
+	});
+	$('#quesToShowSelect').on('change',function(){
+		if ($(this).val()=="yes"){
+			$('.quesToShow').css('display','block');
+		}else{
+			$('.quesToShow').hide();
 		}
 	});
 });

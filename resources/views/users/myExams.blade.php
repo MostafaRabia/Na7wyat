@@ -39,6 +39,7 @@
 								$getPermission = App\Permission::where('id_exam',$Exam->id)->where('id_user',auth()->user()->id_user)->first();
 								$countDegrees = App\Ques::where('id_exam',$Exam->id)->sum('degree');
 								$countQues = App\Ques::where('id_exam',$Exam->id)->count();
+								$getAns = App\Results::where('id_exam',$Exam->id)->where('id_user',auth()->user()->id)->count();
 							@endphp
 							<tr>
 								<td>{{$Exam->name}}</td>
@@ -57,17 +58,23 @@
 									@endif
 								</td>
 								<td>{{$countQues}}</td>
-								<td style="direction:ltr;">{{$countAns}}/{{$countDegrees}}</td>
+								<td style="direction:ltr;">
+								@if ($Exam->isBack==1&&$getPermission->finish==0&&$getAns>0) {{trans('Results.notFinish')}} @else {{$countAns}}/{{$countDegrees}} @endif
+								</td>
 								@if ($getPermission)
 									@if ($getPermission->ban==1)
 										<td>{{trans('myExams.Ban')}}</td>
-									@elseif ($getPermission->ban==0&&$getPermission->enter==0&&$getPermission->finish==0&&$Exam->avil==1)
+									@elseif ($getPermission->finish==0&&$Exam->avil==1)
 										<td><a class="btn-floating waves-effect waves-light teal lighten-1 enter" href="{{url('exam')}}/{{$Exam->name}}">
 											<i class="material-icons">send</i>
 										</a></td>
-									@elseif ($getPermission->finish==1&&$getPermission->ban==0)
+									@elseif ($getPermission->finish==1)
 										<td></td>
 										<td><a class="btn-floating waves-effect waves-light teal lighten-1" href="{{url('results')}}/{{$Exam->name}}">
+											<i class="material-icons">send</i>
+										</a></td>
+									@elseif ($getAns>0&&$getPermission->finish==0)
+										<td><a class="btn-floating waves-effect waves-light teal lighten-1 enter" href="{{url('exam')}}/{{$Exam->name}}">
 											<i class="material-icons">send</i>
 										</a></td>
 									@endif

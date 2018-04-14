@@ -17,7 +17,7 @@
 					{!! Form::open(['url'=>'admin/panel/edit/'.$getUser->id,'method'=>'post']) !!}
 						<div class="input-field col s12"> 
 							<h5>{{trans('editUser.Admin')}}</h5>
-							{!! Form::number('admin',$getUser->admin,['class'=>'validate']) !!}
+							{!! Form::number('admin',$getUser->admin,['class'=>'validate','min'=>0,'max'=>2]) !!}
 						</div>
 						<p>
 						<div class="input-field col s12">

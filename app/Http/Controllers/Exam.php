@@ -61,6 +61,19 @@ class Exam extends Controller
 			$Page = 1;
 		}else{
 			$Page = 0;
+			$Back = 0;
+		}
+		$Back = 0;
+		if ($r->input('back')=='yes'){
+			$Back = 1;
+		}else{
+			$Back = 0;
+		}
+		$quesToShow = 1;
+		if ($r->input('quesToShowSelect')=='yes'){
+			$quesToShow = $r->input('quesToShow');
+		}else{
+			$quesToShow = 1;
 		}
 		if ($Validate->fails()){
 			session()->flash('errorCreateExam',true);
@@ -78,6 +91,8 @@ class Exam extends Controller
 				$addExam->showDegree = $Show;
 				$addExam->isTime = $Time;
 				$addExam->isPage = $Page;
+				$addExam->quesToShow = $quesToShow;
+				$addExam->isBack = $Back;
 			$addExam->save();
 			$idExam = $addExam->id;
 			$getMembers = Member::get();
@@ -96,11 +111,13 @@ class Exam extends Controller
 	}
 	public function createQuesExam(Request $r,$id){
 		$getIdQue = Ques::where('id_exam',$id)->orderBy('id_que','DESC')->first();
+		$getExam = Exams::find($id);
 		if($getIdQue){
 			$idQue = $getIdQue->id_que + 1;
 		}else{
 			$idQue = 1;
 		}
+		$Section = ceil($idQue / $getExam->quesToShow);
 		$Validate = Validator::make($r->all(),[
 				'ques' => 'required',
 			]);
@@ -113,6 +130,8 @@ class Exam extends Controller
 			}else{
 				$ansCorrect = null;
 			}
+			$getExam->sections = $Section;
+			$getExam->save();
 			$addQues = new Ques;
 				$addQues->id_exam = $id;
 				$addQues->id_que = $idQue;
@@ -121,6 +140,10 @@ class Exam extends Controller
 				$addQues->ans2 = $r->input('ans2');
 				$addQues->ans3 = $r->input('ans3');
 				$addQues->ans4 = $r->input('ans4');
+				$addQues->ans5 = $r->input('ans5');
+				$addQues->ans6 = $r->input('ans6');
+				$addQues->ans7 = $r->input('ans7');
+				$addQues->ans8 = $r->input('ans8');
 				$addQues->correct = $ansCorrect;
 				$addQues->degree = $r->input('degree');
 			$addQues->save();
@@ -144,6 +167,7 @@ class Exam extends Controller
 	}
 	public function editExam(Request $r,$id){
 		$getQuesAndExam = Ques::find($id);
+		$countQues = Ques::where('id_exam',$getQuesAndExam->id_exam)->count();
 		$Validate = Validator::make($r->all(),[
 				'name' => [
 					'required',
@@ -181,6 +205,19 @@ class Exam extends Controller
 			$Page = 1;
 		}else{
 			$Page = 0;
+			$Back = 0;
+		}
+		$Back = 0;
+		if ($r->input('back')=='yes'){
+			$Back = 1;
+		}else{
+			$Back = 0;
+		}
+		$quesToShow = 1;
+		if ($r->input('quesToShowSelect')=='yes'){
+			$quesToShow = $r->input('quesToShow');
+		}else{
+			$quesToShow = 1;
 		}
 		if ($Validate->fails()){
 			return redirect()->back()->with('errorCreateExam',trans('Modal.pErrorCreateExam'))->withErrors($Validate)->withInput();
@@ -191,6 +228,7 @@ class Exam extends Controller
 			}else{
 				$ansCorrect = null;
 			}
+			$Sections = ceil($countQues / $quesToShow);
 			$getQuesAndExam->Exam->name = $r->input('name');
 			$getQuesAndExam->Exam->time = $r->input('time');
 			$getQuesAndExam->Exam->dateFrom = $r->input('dateFrom');
@@ -201,11 +239,18 @@ class Exam extends Controller
 			$getQuesAndExam->Exam->showDegree = $Show;
 			$getQuesAndExam->Exam->isTime = $Time;
 			$getQuesAndExam->Exam->isPage = $Page;
+			$getQuesAndExam->Exam->quesToShow = $quesToShow;
+			$getQuesAndExam->Exam->sections = $Sections;
+			$getQuesAndExam->Exam->isBack = $Back;
 			$getQuesAndExam->ques = $r->input('ques');
 			$getQuesAndExam->ans1 = $r->input('ans1');
 			$getQuesAndExam->ans2 = $r->input('ans2');
 			$getQuesAndExam->ans3 = $r->input('ans3');
 			$getQuesAndExam->ans4 = $r->input('ans4');
+			$getQuesAndExam->ans5 = $r->input('ans5');
+			$getQuesAndExam->ans6 = $r->input('ans6');
+			$getQuesAndExam->ans7 = $r->input('ans7');
+			$getQuesAndExam->ans8 = $r->input('ans8');
 			$getQuesAndExam->correct = $ansCorrect;
 			$getQuesAndExam->degree = $r->input('degree');
 			$getQuesAndExam->save();
