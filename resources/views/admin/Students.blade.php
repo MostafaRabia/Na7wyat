@@ -17,9 +17,9 @@
 				<table id="example" style="width:100%">
 					<thead>
 						<tr>
-							<th onclick="sortTable(0)">{{trans('Students.Username')}}</th>
-							<th onclick="sortTable(1)">{{trans('Students.Result')}}</th>
-							<th onclick="sortTable(1)">{{trans('Students.showAns')}}</th>
+							<th>{{trans('Students.Username')}}</th>
+							<th>{{trans('Students.Result')}}</th>
+							<th>{{trans('Students.showAns')}}</th>
 						</tr>
 					</thead>
 					<tbody>
