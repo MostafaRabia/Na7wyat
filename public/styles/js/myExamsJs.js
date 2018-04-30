@@ -1,8 +1,10 @@
 $(document).ready(function(){
-	$('.enter').on('click',function(){
-		$('#modal1').modal();
-		$('#modal1').modal('open');
-		$('.enter-modal').attr('href',$(this).attr('href'));
-		return false;
-	});
+    $('#example').DataTable({
+    	rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true,
+        "lengthChange": false,
+        "pageLength": 10
+    });
 });

@@ -1,14 +1,20 @@
 @extends(app('users').'.Index')
 @section('center')
-{!! Html::style(app('css').'/myExamsStyle.css?version=1.1.0') !!}
-{!! Html::script(app('js').'/Students.min.js?version=1.0.0') !!}
+{!! Html::style(app('css').'/myExamsStyle.css') !!}
+{!! Html::style(app('css').'/datatables.min.css') !!}
+{!! Html::style(app('css').'/rowReorder.dataTables.min.css') !!}
+{!! Html::style(app('css').'/responsive.dataTables.min.css') !!}
+{!! Html::script(app('js').'/jquery.dataTables.min.js') !!}
+{!! Html::script(app('js').'/dataTables.rowReorder.min.js') !!}
+{!! Html::script(app('js').'/dataTables.responsive.min.js') !!}
+{!! Html::script(app('js').'/Students.min.js') !!}
 <!-- Start Section Page -->
 <section class="pageSection">
 	<div class="container">
 		<div class="row">
 			<div class="asideLeft col s12 left">
 				<h4>{{trans('Students.Header')}}({{count($usersFinish)}})</h4>
-				<table id='table'>
+				<table id="example" style="width:100%">
 					<thead>
 						<tr>
 							<th onclick="sortTable(0)">{{trans('Students.Username')}}</th>

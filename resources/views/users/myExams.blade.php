@@ -1,6 +1,12 @@
 @extends(app('users').'.Index')
 @section('center')
 {!! Html::style(app('css').'/myExamsStyle.css') !!}
+{!! Html::style(app('css').'/datatables.min.css') !!}
+{!! Html::style(app('css').'/rowReorder.dataTables.min.css') !!}
+{!! Html::style(app('css').'/responsive.dataTables.min.css') !!}
+{!! Html::script(app('js').'/jquery.dataTables.min.js') !!}
+{!! Html::script(app('js').'/dataTables.rowReorder.min.js') !!}
+{!! Html::script(app('js').'/dataTables.responsive.min.js') !!}
 {!! Html::script(app('js').'/myExamsJs.min.js') !!}
 <!-- Start Modal -->
 <div id="modal1" class="modal modal-fixed-footer">
@@ -20,7 +26,7 @@
 		<div class="row">
 			<div class="asideLeft col s12 left">
 				<h4>{{trans('myExams.myExams')}}</h4>
-				<table class="responsive-table">
+				<table id="example" style="width:100%">
 					<thead>
 						<tr>
 							<th>{{trans('myExams.Name')}}</th>
@@ -60,25 +66,35 @@
 								<td>{{$countQues}}</td>
 								<td style="direction:ltr;">
 								@if ($Exam->isBack==1&&$getPermission->finish==0&&$getAns>0) {{trans('Results.notFinish')}} @else {{$countAns}}/{{$countDegrees}} @endif
-								</td>
-								@if ($getPermission)
-									@if ($getPermission->ban==1)
-										<td>{{trans('myExams.Ban')}}</td>
-									@elseif ($getPermission->finish==0&&$Exam->avil==1)
-										<td><a class="btn-floating waves-effect waves-light teal lighten-1 enter" href="{{url('exam')}}/{{$Exam->name}}">
-											<i class="material-icons">send</i>
-										</a></td>
-									@elseif ($getPermission->finish==1)
-										<td></td>
-										<td><a class="btn-floating waves-effect waves-light teal lighten-1" href="{{url('results')}}/{{$Exam->name}}">
-											<i class="material-icons">send</i>
-										</a></td>
-									@elseif ($getAns>0&&$getPermission->finish==0)
-										<td><a class="btn-floating waves-effect waves-light teal lighten-1 enter" href="{{url('exam')}}/{{$Exam->name}}">
-											<i class="material-icons">send</i>
-										</a></td>
+								<td>
+									@if ($getPermission)
+										@if ($Exam->avil==1&&$getPermission->finish==0)
+											<a class="btn-floating waves-effect waves-light teal lighten-1" onclick="$('#modal1').modal();$('#modal1').modal('open');$('.enter-modal').attr('href',$(this).attr('href'));return false;" href="{{url('exam')}}/{{$Exam->name}}">
+												<i class="material-icons">send</i>
+											</a>
+										@endif
+										@if ($getAns>0&&$getPermission->finish==0)
+										 	<a class="btn-floating waves-effect waves-light teal lighten-1" onclick="$('#modal1').modal();$('#modal1').modal('open');$('.enter-modal').attr('href',$(this).attr('href'));return false;" href="{{url('exam')}}/{{$Exam->name}}">
+												<i class="material-icons">send</i>
+											</a>
+										@endif
+									@else
+										@if ($Exam->avil==1)
+											<a class="btn-floating waves-effect waves-light teal lighten-1" onclick="$('#modal1').modal();$('#modal1').modal('open');$('.enter-modal').attr('href',$(this).attr('href'));return false;" href="{{url('exam')}}/{{$Exam->name}}">
+												<i class="material-icons">send</i>
+											</a>
+										@endif
 									@endif
-								@endif
+								</td>
+								<td>
+									@if ($getPermission)
+										@if ($getPermission->finish==1)
+											<a class="btn-floating waves-effect waves-light teal lighten-1" href="{{url('results')}}/{{$Exam->name}}">
+												<i class="material-icons">send</i>
+											</a>
+										@endif
+									@endif
+								</td>
 							</tr>
 						@endforeach
 					</tbody>

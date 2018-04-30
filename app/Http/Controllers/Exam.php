@@ -95,7 +95,7 @@ class Exam extends Controller
 				$addExam->isBack = $Back;
 			$addExam->save();
 			$idExam = $addExam->id;
-			$getMembers = Member::get();
+			/*$getMembers = Member::get();
 			ini_set('max_execution_time', -1);
 			foreach ($getMembers as $Member){
 				$addPermissiin = new Permission;
@@ -105,7 +105,7 @@ class Exam extends Controller
 					$addPermissiin->finish = 0;
 					$addPermissiin->ban = 0;
 				$addPermissiin->save();
-			}
+			}*/
 			return redirect('create/exam/'.$idExam);
 		}
 	}
@@ -343,6 +343,8 @@ class Exam extends Controller
 		$getFinsh = Permission::where('id_exam',$id)->where('finish',1)->get();
 		$getExam = Exams::find($id);
 		$getQues = Ques::where('id_exam',$getExam->id)->sum('degree');
+		$usersFinish = [];
+		$getResults = [];
 		foreach ($getFinsh as $Finish){
 			$getUsersFinish = Users::where('id_user',$Finish->id_user)->first();
 			$usersFinish[] = $getUsersFinish;	

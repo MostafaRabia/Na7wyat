@@ -18,6 +18,7 @@ class Login extends Controller
 		$Exist = Users::where('id_user',$userProvide->getId())->first();
 		$Login = false;
 		$Admin = false;
+		$Facebook = false;
 		//return redirect('getusers/'.$userProvide->token);
 		if ($Exist){
 			Auth::loginUsingId($Exist->id,true);
@@ -26,12 +27,11 @@ class Login extends Controller
 			}else{
 				$Login = true;
 			}
-			if (auth()->user()->admin==2){
+			/*if (auth()->user()->admin==2){
 				session()->put('token',$userProvide->token);
-			}
+			}*/
 		}else{
-			$existIdMember = Member::where('id_member',$userProvide->getId())->first();
-			if ($existIdMember){
+			if ($Facebook==false){
 				$Add = new Users;
 					$Add->id_user = $userProvide->getId();
 					$Add->username = $userProvide->getName();
@@ -40,7 +40,18 @@ class Login extends Controller
 				Auth::loginUsingId($Add->id,true);
 				$Login = true;
 			}else{
-            	return redirect('/')->with('Error',true)->with('pModal',trans('Modal.pNotMember'));
+				$existIdMember = Member::where('id_member',$userProvide->getId())->first();
+				if ($existIdMember){
+					$Add = new Users;
+						$Add->id_user = $userProvide->getId();
+						$Add->username = $userProvide->getName();
+						$Add->admin = 0;
+					$Add->save();
+					Auth::loginUsingId($Add->id,true);
+					$Login = true;
+				}else{
+	            	return redirect('/')->with('Error',true)->with('pModal',trans('Modal.pNotMember'));
+				}
 			}
 		}
 		if ($Login==true){

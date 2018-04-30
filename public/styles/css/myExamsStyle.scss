@@ -13,13 +13,34 @@ body{
 		margin-bottom: 0;
 		.asideLeft{
 			min-height: 100vh;
+			#example_info,#example_filter label,.dataTables_wrapper .dataTables_paginate .paginate_button{
+				color: white !important;
+			}
+			.dataTables_wrapper .dataTables_paginate .paginate_button.disabled{
+				color: #666 !important;
+			}
+			.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+				color: #333 !important;
+			}
 			table{
-				tbody{
+				thead{
 					tr{
+						th{
+							text-align: right;
+						}
+					}
+				}
+				tbody{
+					.child{
+						float: left;
+					}
+					tr{
+						background-color: inherit;
 						.en{
 							direction: ltr;
 						}
 						td{
+							text-align: right;
 							a{
 								i{
 									transform: rotate(180deg);
