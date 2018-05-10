@@ -124,25 +124,7 @@ class Admins extends Controller
 		Artisan::call($Artisan);
 	}
 	public function Task(){
-		$Today = date_create('now');
-        $getExams = Exams::get();
-        foreach ($getExams as $Exam){
-            if ($Exam->dateTo!=null){
-                $dateFrom = date_create_from_format('j F, Y H:i',$Exam->dateFrom.' '.$Exam->timeFrom);
-                $dateTo = date_create_from_format('j F, Y H:i',$Exam->dateTo.' '.$Exam->timeTo);
-                if ($Exam->avil==1&&date_diff($Today,$dateFrom)->invert==0&&date_diff($Today,$dateTo)->invert==0){
-                    $Exam->avil = 0;
-                    $Exam->save();
-                }
-                if ($Exam->avil==0&&date_diff($Today,$dateFrom)->invert==1&&date_diff($Today,$dateTo)->invert==0){
-                    $Exam->avil = 1;
-                    $Exam->save();
-                }elseif ($Exam->avil==1&&date_diff($Today,$dateTo)->invert==1){
-                    $Exam->avil = 0;
-                    $Exam->save();
-                }
-            }
-        }
+		Artisan::call('schedule:run');
 	}
 	public function showAdd(){
 		app()->singleton('Title',function(){
