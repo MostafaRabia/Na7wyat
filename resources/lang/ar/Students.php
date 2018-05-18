@@ -4,4 +4,5 @@ return [
 	'Username' => 'الاسم',
 	'Result' => 'الدرجة', 
 	'showAns' => 'رؤية الإجابات',
+	'notFinish' => 'من لم يمتحن',
 ];

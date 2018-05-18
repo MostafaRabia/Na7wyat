@@ -15,4 +15,5 @@ return [
 	'deleteExam' => 'حذف الامتحان',
 	'addQue' => 'اضافة سؤال',
 	'countDegree' => 'عدد الدرجات',
+	'notStudents' => 'من لم يمتحن',
 ];

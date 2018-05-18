@@ -40,6 +40,7 @@ Route::group(['middleware'=>'Islam'],function(){
 	Route::get('stop/{id}','Exam@Stop');
 	Route::get('setting/exam/{id}','Exam@showSetting');
 	Route::get('students/exam/{id}','Exam@Students');
+	Route::get('notstudents/exam/{id}','Exam@notStudents');
 	Route::get('result/{id}','Exam@Result');
 	Route::get('delete/exam/{id}','Exam@deleteExam');
 	Route::get('admins','Admins@getAdmins');

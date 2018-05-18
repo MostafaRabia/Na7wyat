@@ -50,6 +50,12 @@
 						<i class="material-icons">send</i>
 					</a>
 				</h5>
+				<h5>
+					{{trans('Exam.notStudents')}}:
+					<a class="btn-floating waves-effect waves-light blue-grey" href="{{url('notstudents/exam/')}}/{{$getExam->id}}">
+						<i class="material-icons">send</i>
+					</a>
+				</h5>
 				<h5>{{trans('Exam.deleteExam')}}: <a class="btn-floating waves-effect waves-light orange darken-4 delete" href="{{url('delete/exam/')}}/{{$getExam->id}}">
 									<i class="material-icons">send</i>
 								</a></h5>

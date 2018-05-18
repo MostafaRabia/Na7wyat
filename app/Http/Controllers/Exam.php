@@ -355,6 +355,24 @@ class Exam extends Controller
 		});
 		return view(app('admin').'.Students',['usersFinish'=>$usersFinish,'getResults'=>$getResults,'getExam'=>$getExam,'getQues'=>$getQues]);
 	}
+	public function notStudents($id){
+		$getUsers = Users::get();
+		foreach ($getUsers as $User){
+			$getNotFinsh = Permission::where('id_exam',$id)->where('id_user',$User->id_user)->first();
+			if ($getNotFinsh){}else{$getNotFinshArr[] = $User;}
+		}
+		$getExam = Exams::find($id);
+		$usersNotFinish = [];
+		foreach ($getNotFinshArr as $notFinish){
+			if ($notFinish==null){continue;}
+			$getUsersNotFinish = Users::where('id_user',$notFinish->id_user)->first();
+			$usersNotFinish[] = $getUsersNotFinish;	
+		}
+		app()->singleton('Title',function(){
+			return trans('Titles.Results');
+		});
+		return view(app('admin').'.usersNotFinish',['usersNotFinish'=>$usersNotFinish,'getExam'=>$getExam]);
+	}
 	public function Result(Request $r,$id){
 		$editResult = Results::find($id);
 		$getDegree = $editResult->Ques->degree;
