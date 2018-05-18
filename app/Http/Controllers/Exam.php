@@ -358,7 +358,7 @@ class Exam extends Controller
 	public function notStudents($id){
 		$getUsers = Users::get();
 		foreach ($getUsers as $User){
-			$getNotFinsh = Permission::where('id_exam',$id)->where('id_user',$User->id_user)->first();
+			$getNotFinsh = Permission::where('id_exam',$id)->where('id_user',$User->id_user)->where('finish',0)->first();
 			if ($getNotFinsh){}else{$getNotFinshArr[] = $User;}
 		}
 		$getExam = Exams::find($id);
