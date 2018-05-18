@@ -365,7 +365,7 @@ class Exam extends Controller
 		$usersNotFinish = [];
 		foreach ($getNotFinshArr as $notFinish){
 			if ($notFinish==null){continue;}
-			$getUsersNotFinish = Users::where('id_user',$notFinish->id_user)->first();
+			$getUsersNotFinish = Users::where('id_user',$notFinish->id_user)->where('admin',0)->first();
 			$usersNotFinish[] = $getUsersNotFinish;	
 		}
 		app()->singleton('Title',function(){
