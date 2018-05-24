@@ -65,7 +65,12 @@
 								</td>
 								<td>{{$countQues}}</td>
 								<td style="direction:ltr;">
-								@if ($Exam->isBack==1&&$getPermission->finish==0&&$getAns>0) {{trans('Results.notFinish')}} @else {{$countAns}}/{{$countDegrees}} @endif
+								@if ($getPermission)
+									@if ($Exam->isBack==1&&$getPermission->finish==0&&$getAns>0) {{trans('Results.notFinish')}} @else {{$countAns}}/{{$countDegrees}} @endif
+								@else
+									 {{$countAns}}/{{$countDegrees}}
+								@endif
+								</td>
 								<td>
 									@if ($getPermission)
 										@if ($Exam->avil==1&&$getPermission->finish==0)
