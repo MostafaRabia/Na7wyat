@@ -1,8 +1,8 @@
 $(document).ready(function(){
 	var d;
 	var t;
-	setInterval(function(){
-		$('button').removeClass('disabled');
+	var intDis = setInterval(function(){
+		$("button:not(.submit)").removeClass('disabled');
 	},5000);
 	$('button').on('click',function(){
 		$(this).addClass('disabled');
