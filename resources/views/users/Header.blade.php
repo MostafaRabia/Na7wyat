@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="UTF-8"/>
         <meta property="og:image" content="{{app('image')}}/preview.jpg" />
-        <meta property="og:description" content="موقع امتحانات للنحو، برعاية عُمر إبراهيم والباشمهندس حسن محمد حسن" />
+        <meta property="og:description" content="موقع امتحانات للنحو، لعمر إبراهيم والباشمهندس حسن محمد" />
         {!! Html::style(app('css').'/materialize.min.css') !!}
         {!! Html::style('https://fonts.googleapis.com/icon?family=Material+Icons') !!}
         {!! Html::style(app('css').'/headerStyle.css') !!}
