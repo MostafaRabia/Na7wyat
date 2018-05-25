@@ -18,7 +18,7 @@
 				<hr>
 				@foreach($getResults as $Results)
 					<h5>{{trans('adminResults.nameOfMember')}}: {{$Results->User->username}}</h5>
-					<h5>{{trans('adminResults.profileOfMember')}}: <a href='https://www.FB.com/{{$Results->User->id_user}}' target="_blank">{{$Results->User->username}}</a></h5>
+					<h5>{{trans('adminResults.profileOfMember')}}: <a href='{{$Results->User->profile}}' target="_blank">{{$Results->User->username}}</a></h5>
 					@php
 						$getQue = App\Ques::where('id_que',$Results->question)->where('id_exam',$Results->id_exam)->first();
 					@endphp
