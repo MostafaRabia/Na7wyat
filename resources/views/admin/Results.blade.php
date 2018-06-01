@@ -27,7 +27,7 @@
 					<h5>
 						{{trans('adminResults.Correct')}}: 
 						@if($Results->Ques->correct!=null)
-							{{$Results->Ques->correct}}
+							{{$getQue->correct}}
 						@else
 							{{trans('Results.nullCorrect')}}
 						@endif

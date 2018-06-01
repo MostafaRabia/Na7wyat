@@ -29,7 +29,7 @@
 						@if($Results->Ques->correct==null)
 							{{trans('Results.nullCorrect')}}
 						@else
-							{{$Results->Ques->correct}}
+							{{$getQue->correct}}
 						@endif
 					</h5>
 					<h5>
