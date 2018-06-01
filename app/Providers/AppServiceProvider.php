@@ -13,6 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
 	if (env('APP_ENV')=='production'){
             \URL::forceScheme('https');
         }
