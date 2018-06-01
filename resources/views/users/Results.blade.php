@@ -19,10 +19,7 @@
 				<h5>{{trans('Results.Final')}}: {{$getDegreesResults}}/{{$getDegreesQues}}</h5>
 				<hr>
 				@foreach($getResults as $Results)
-					@php
-						$getQue = App\Ques::where('id_que',$Results->question)->where('id_exam',$Results->id_exam)->first();
-					@endphp
-					<h5>{{trans('Results.Que')}} {{$getQue->ques}}</h5>
+					<h5>{{trans('Results.Que')}} {{$Results->Ques->ques}}</h5>
 					<h5>{{trans('Results.Ans')}} {{$Results->answer}}</h5>
 					<h5>
 						{{trans('Results.Correct')}}
@@ -46,7 +43,7 @@
 							<span class="red-text">{{trans('Results.Fail')}}</span>
 						@endif
 					 </h5>
-					<h5>{{trans('adminResults.Degree')}}: @if($Results->degree==0&&$Results->result==2) ---- @else {{$Results->degree}} @endif / {{$getQue->degree}}</h5>
+					<h5>{{trans('adminResults.Degree')}}: @if($Results->degree==0&&$Results->result==2) ---- @else {{$Results->degree}} @endif / {{$Results->Ques->degree}}</h5>
 					 <h5>{{trans('Results.Notes')}} {{$Results->notes}}</h5>
 					 <hr>
 				@endforeach

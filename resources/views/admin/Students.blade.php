@@ -7,7 +7,8 @@
 {!! Html::script(app('js').'/jquery.dataTables.min.js') !!}
 {!! Html::script(app('js').'/dataTables.rowReorder.min.js') !!}
 {!! Html::script(app('js').'/dataTables.responsive.min.js') !!}
-{!! Html::script(app('js').'/Students.min.js') !!}
+{!! Html::script(app('js').'/num-html.js') !!}
+{!! Html::script(app('js').'/Students.js') !!}
 <!-- Start Section Page -->
 <section class="pageSection">
 	<div class="container">

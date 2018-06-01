@@ -5,6 +5,9 @@ $(document).ready(function(){
         },
         responsive: true,
         "lengthChange": false,
-        "pageLength": 10
+        "pageLength": 10,
+        columnDefs: [
+       		{type: 'num-html', targets: 1}
+    	]
     });
 });
