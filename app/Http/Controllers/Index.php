@@ -12,7 +12,7 @@ use App\Results;
 class Index extends Controller
 {
 	public function Home(){
-		$getFinsh = Permission::where('id_exam',3)->where('finish',1)->get();
+		/*$getFinsh = Permission::where('id_exam',3)->where('finish',1)->get();
 		foreach ($getFinsh as $Finish){
 			$getUsersFinish = Users::where('id_user',$Finish->id_user)->first();
 			$getResults = Results::where('id_user',$getUsersFinish['id'])->where('id_exam',3)->sum('degree');
@@ -22,7 +22,7 @@ class Index extends Controller
 				echo "<Br>";
 			}
 		}
-		return;
+		return;*/
 		app()->singleton('Title',function(){
 			return trans('Titles.Home');
 		});
