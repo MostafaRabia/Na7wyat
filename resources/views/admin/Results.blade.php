@@ -19,10 +19,7 @@
 				@foreach($getResults as $Results)
 					<h5>{{trans('adminResults.nameOfMember')}}: {{$Results->User->username}}</h5>
 					<h5>{{trans('adminResults.profileOfMember')}}: <a href='{{$Results->User->profile}}' target="_blank">{{$Results->User->username}}</a></h5>
-					@php
-						$getQue = App\Ques::where('id_que',$Results->question)->where('id_exam',$Results->id_exam)->first();
-					@endphp
-					<h5>{{trans('adminResults.Que')}}: {{$getQue->ques}}</h5>
+					<h5>{{trans('adminResults.Que')}}: {{$Results->Ques->ques}}</h5>
 					<h5>{{trans('adminResults.Ans')}}: {{$Results->answer}}</h5>
 					<h5>
 						{{trans('adminResults.Correct')}}: 
