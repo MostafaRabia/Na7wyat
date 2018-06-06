@@ -124,7 +124,7 @@
 					</div>
 					<div class="input-field col s12">
 						<h5>{{trans('createExam.Degree')}}</h5>
-						{!! Form::number('degree',$getQue->degree,['class'=>'validate valid']) !!}
+						{!! Form::number('degree',$getQue->degree,['class'=>'validate valid','step'=>'any']) !!}
 					</div>
 					<div class="input-field col s12">
 						<button class="btn waves-effect waves-light" type="submit">	 {{trans('editQue.Submit')}}
