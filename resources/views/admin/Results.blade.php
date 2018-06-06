@@ -56,7 +56,7 @@
 					</h5>
 					<h5>
 						{{trans('adminResults.addDegree')}}: 
-						{!! Form::number('degree','',['class'=>'validate addDegreeText','style'=>'width:25%;','id'=>$Results->id,'max'=>$Results->Ques->degree,'userId'=>$Results->User->id_user,'idExam'=>$Results->id_exam,'step'=>'0.01']) !!}
+						{!! Form::number('degree','',['class'=>'validate addDegreeText','style'=>'width:25%;','id'=>$Results->id,'max'=>$Results->Ques->degree,'userId'=>$Results->User->id_user,'idExam'=>$Results->id_exam,'step'=>'any']) !!}
 						<button class="btn-floating waves-effect addDegree waves-light teal lighten-1" id="{{$Results->id}}">
 							<i class="material-icons">send</i>
 						</button>

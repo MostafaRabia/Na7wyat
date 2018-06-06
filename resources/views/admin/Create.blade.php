@@ -123,7 +123,7 @@
 							</div>
 							<div class="input-field col s12">
 								<h5>{{trans('createExam.Degree')}}</h5>
-								{!! Form::number('degree',0,['class'=>'validate']) !!}
+								{!! Form::number('degree',0,['class'=>'validate','step'=>'any']) !!}
 							</div>
 							<div class="input-field col s12">
 								<button class="btn waves-effect waves-light submit">	 {{trans('createExam.Submit')}}
