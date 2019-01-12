@@ -35,7 +35,7 @@ class Login extends Controller
 				$Add = new Users;
 					$Add->id_user = $userProvide->getId();
 					$Add->username = $userProvide->getName();
-					$Add->profile = $userProvide->user['link'];
+					$Add->profile = 'null';
 					$Add->admin = 0;
 				$Add->save();
 				Auth::loginUsingId($Add->id,true);
