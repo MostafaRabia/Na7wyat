@@ -46,11 +46,8 @@ class Kernel extends ConsoleKernel
 	            }
 	        }
         });
-        $schedule->command('view:clear');
-        $schedule->command('route:clear');
-        $schedule->command('config:clear');
-        $schedule->command('route:cache');
-        $schedule->command('config:cache'); 
+        $schedule->command('optimize:clear');
+        $schedule->command('optimize');
     }
 
     /**
