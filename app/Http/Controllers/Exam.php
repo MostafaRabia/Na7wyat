@@ -255,6 +255,28 @@ class Exam extends Controller
 			$getQuesAndExam->degree = $r->input('degree');
 			$getQuesAndExam->save();
 			$getQuesAndExam->Exam->save();
+
+			$getResults = Results::where('id_exam',$getQuesAndExam->Exam->id)->where('question',$getQuesAndExam->id_que)->count();
+			for($i=1;$i<=$getResults;$i++){
+				$addResult = Results::where('id_exam',$getQuesAndExam->Exam->id)->where('question',$getQuesAndExam->id_que)->first();
+				if($addResult){
+					if (isset($getQuesAndExam->correct)){
+						if ($addResult->answer==$getQuesAndExam->correct){
+							$Right = 1;
+							$Degree = $getQuesAndExam->degree;
+						}else{
+							$Right = 0;
+							$Degree = 0;
+						}
+					}else{
+						$Right = 2;
+						$Degree = 0;
+					}
+						$addResult->result = $Right;
+						$addResult->degree = $Degree;
+					$addResult->save();
+				}
+			}
 			return redirect('edit/exam/'.$getQuesAndExam->Exam->id);
 		}
 	}
@@ -295,7 +317,7 @@ class Exam extends Controller
 		return view(app('admin').'.usersFinish',['usersFinish'=>$usersFinish,'getExam'=>$getExam]);
 	}
 	public function Results($id,$User){
-		$getResults = Results::where('id_exam',$id)->where('id_user',$User)->paginate(10);
+		$getResults = Results::where('id_exam',$id)->where('id_user',$User)->orderBy('result','ASC')->paginate(10);
 		$getCorrectAns = Results::where('id_exam',$id)->where('id_user',$User)->where('result',1)->count(); 
 		$getCorrectAnsWithCorrect = Results::where('id_exam',$id)->where('id_user',$User)->where('result',3)->count(); 
 		$getFailAns = Results::where('id_exam',$id)->where('id_user',$User)->where('result',0)->count(); 
@@ -340,20 +362,12 @@ class Exam extends Controller
 		return view(app('admin').'.Setting',['getExam'=>$getExam]);
 	}
 	public function Students($id){
-		$getFinsh = Permission::where('id_exam',$id)->where('finish',1)->get();
-		$getExam = Exams::find($id);
-		$getQues = Ques::where('id_exam',$getExam->id)->sum('degree');
-		$usersFinish = [];
-		$getResults = [];
-		foreach ($getFinsh as $Finish){
-			$getUsersFinish = Users::where('id_user',$Finish->id_user)->first();
-			$usersFinish[] = $getUsersFinish;	
-			$getResults[] = Results::where('id_user',$getUsersFinish['id'])->where('id_exam',$getExam->id)->sum('degree');
-		}
+		$getFinsh = Permission::where('id_exam',$id)->where('finish',1)->orderBy('created_at','ASC')->get();
+		$getQues = Ques::where('id_exam',$id)->sum('degree');
 		app()->singleton('Title',function(){
 			return trans('Titles.Students');
 		});
-		return view(app('admin').'.Students',['usersFinish'=>$usersFinish,'getResults'=>$getResults,'getExam'=>$getExam,'getQues'=>$getQues]);
+		return view(app('admin').'.Students',['getFinsh'=>$getFinsh,'getQues'=>$getQues,'id'=>$id]);
 	}
 	public function notStudents($id){
 		$getUsers = Users::get();

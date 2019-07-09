@@ -126,7 +126,7 @@
 								{!! Form::number('degree',0,['class'=>'validate','step'=>'any']) !!}
 							</div>
 							<div class="input-field col s12">
-								<button class="btn waves-effect waves-light submit">	 {{trans('createExam.Submit')}}
+								<button class="btn waves-effect waves-light submit-add-ques">	 {{trans('createExam.Submit')}}
 									<i class="material-icons right">send</i>
 								</button>
 							</div>

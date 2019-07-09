@@ -3,8 +3,8 @@ $(document).ready(function(){
 	var t;
 	var intDis = setInterval(function(){
 		$("button:not(.submit)").removeClass('disabled');
-	},5000);
-	$('button').on('click',function(){
+	},2000);
+	$('button:not(.submit-add-ques)').on('click',function(){
 		$(this).addClass('disabled');
 		window.onbeforeunload = function(e) {
 		    e.preventDefault();

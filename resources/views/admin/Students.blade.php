@@ -14,27 +14,34 @@
 	<div class="container">
 		<div class="row">
 			<div class="asideLeft col s12 left">
-				<h4>{{trans('Students.Header')}}({{count($usersFinish)}})</h4>
+				<h4>{{trans('Students.Header')}}({{count($getFinsh)}})</h4>
 				<table id="example" style="width:100%">
 					<thead>
 						<tr>
 							<th>{{trans('Students.Username')}}</th>
 							<th>{{trans('Students.Result')}}</th>
 							<th>{{trans('Students.showAns')}}</th>
+							<th>وقت الدخول</th>
+							<th>وقت الانتهاء</th>
 						</tr>
 					</thead>
 					<tbody>
-						@for($i=0;$i<count($usersFinish);$i++)
+						@foreach($getFinsh as $Finish)
+						@php
+							$getResults = App\Results::where('id_user',$Finish->User->id)->where('id_exam',$id)->sum('degree');
+						@endphp
 							<tr>
-								<td>{{$usersFinish[$i]['username']}}</a></td>
-								<td style="direction:ltr;">{{$getResults[$i]}}/{{$getQues}}</td>
+								<td>{{$Finish->User->username}}</a></td>
+								<td style="direction:ltr;">{{$getResults}}/{{$getQues}}</td>
 								<td>
-									<a class="btn-floating waves-effect waves-light teal lighten-1" href="{{url('results/exam')}}/{{$getExam->id}}/{{$usersFinish[$i]['id']}}">
+									<a class="btn-floating waves-effect waves-light teal lighten-1" href="{{url('results/exam')}}/{{$id}}/{{$Finish->User->id}}">
 										<i class="material-icons">send</i>
 									</a>
 								</td>
+								<td style="direction:ltr;">{{$Finish->created_at}}</td>
+								<td style="direction:ltr;">{{$Finish->updated_at}}</td>
 							</tr>
-						@endfor
+						@endforeach
 					</tbody>
 				</table>
 			</div>

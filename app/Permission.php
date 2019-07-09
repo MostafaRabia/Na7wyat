@@ -14,4 +14,7 @@ class Permission extends Authenticatable
     public function Exam(){
     	return $this->belongsTo('App\Exams','id_exam');
     }
+    public function User(){
+    	return $this->belongsTo('App\Users','id_user','id_user');
+    }
 }

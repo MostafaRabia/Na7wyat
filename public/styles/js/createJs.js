@@ -20,13 +20,18 @@ $(document).ready(function(){
 	$('.datepicker').pickadate();
 	$('.timepicker').pickatime({ampmclickable:false,twelvehour:false});
 	$('select').material_select();
-	$('.submit').on('click',function(){
+	$('.submit-add-ques').on('click',function(){
+		var element = this;
 		var href = $('.formAddQue').attr('action');
 		$.ajax({
 			url:href,
 			type:"POST",
 			data:$('.formAddQue').serialize(),
+			beforeSend: function(){
+				$(element).addClass('disabled');
+			},
 			success:function(data){
+				$(element).removeClass('disabled');
 				if (data=="addQue"){
 					Materialize.toast('تم أضافة السؤال بنجاح', 2000);
 				}else if (data=="errorCreateQue"){

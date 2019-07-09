@@ -118,7 +118,7 @@ class Profile extends Controller
 		$getPermission = Permission::where('id_exam',$getId->id)->where('id_user',auth()->user()->id_user)->first();
 		$notFinish = 0;
 		if ($getId->isBack==1&&$getPermission->finish==0){$notFinish = 1;}
-		$getResults = Results::where('id_user',auth()->user()->id)->where('id_exam',$id)->paginate(10);
+		$getResults = Results::where('id_user',auth()->user()->id)->where('id_exam',$id)->orderBy('result','ASC')->paginate(10);
 		$getCorrectAns = Results::where('id_exam',$id)->where('id_user',auth()->user()->id)->where('result',1)->count(); 
 		$getCorrectAnsWithCorrect = Results::where('id_exam',$id)->where('id_user',auth()->user()->id)->where('result',3)->count(); 
 		$getFailAns = Results::where('id_exam',$id)->where('id_user',auth()->user()->id)->where('result',0)->count(); 
