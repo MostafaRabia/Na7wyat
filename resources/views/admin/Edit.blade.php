@@ -28,21 +28,30 @@
 						<h5>{{trans('createExam.Name')}}</h5>
 						{!! Form::text('name',$getQue->Exam->name,['class'=>'validate valid']) !!}
 					</div>
-					<div class="input-field col s12"> 
-						<h5>{{trans('createExam.dateFrom')}}</h5>
-						<input type="text" class="datepicker" name='dateFrom' value="{{$getQue->Exam->dateFrom}}">
+					<div class="input-field col s12">
+						<select name="isUnlimted" id="isUnlimted">
+							<option value="" disabled >هل تريد الامتحان بدون تاريخ؟</option>
+							<option value="yes" @if($getQue->Exam->is_unlimted==1) selected @endif>{{trans('createExam.Yes')}}</option>
+							<option value="no" @if($getQue->Exam->is_unlimted==0) selected @endif>{{trans('createExam.No')}}</option>
+						</select>
 					</div>
-					<div class="input-field col s12"> 
-						<h5>{{trans('createExam.dateTo')}}</h5>
-						<input type="text" class="datepicker" name="dateTo" value="{{$getQue->Exam->dateTo}}">
-					</div>
-					<div class="input-field col s12"> 
-						<h5>{{trans('createExam.timeFrom')}}</h5>
-						<input type="text" class="timepicker" name="timeFrom" value="{{$getQue->Exam->timeFrom}}">
-					</div>
-					<div class="input-field col s12"> 
-						<h5>{{trans('createExam.timeTo')}}</h5>
-						<input type="text" class="timepicker" name="timeTo" value="{{$getQue->Exam->timeTo}}">
+					<div style="display:none;" class='date'>
+						<div class="input-field col s12"> 
+							<h5>{{trans('createExam.dateFrom')}}</h5>
+							<input type="text" class="datepicker" name='dateFrom' value="{{$getQue->Exam->dateFrom}}">
+						</div>
+						<div class="input-field col s12"> 
+							<h5>{{trans('createExam.dateTo')}}</h5>
+							<input type="text" class="datepicker" name="dateTo" value="{{$getQue->Exam->dateTo}}">
+						</div>
+						<div class="input-field col s12"> 
+							<h5>{{trans('createExam.timeFrom')}}</h5>
+							<input type="text" class="timepicker" name="timeFrom" value="{{$getQue->Exam->timeFrom}}">
+						</div>
+						<div class="input-field col s12"> 
+							<h5>{{trans('createExam.timeTo')}}</h5>
+							<input type="text" class="timepicker" name="timeTo" value="{{$getQue->Exam->timeTo}}">
+						</div>
 					</div>
 					<div class="input-field col s12">
 						<select name="isTime" id="isTime">

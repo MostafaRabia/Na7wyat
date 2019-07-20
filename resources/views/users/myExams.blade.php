@@ -50,14 +50,14 @@
 							<tr>
 								<td>{{$Exam->name}}</td>
 								<td class="en">
-									@if($Exam->dateFrom!=null)
+									@if($Exam->is_unlimted!=1)
 										{{$Exam->dateFrom}} {{$Exam->timeFrom}}
 									@else
 										{{trans('myExams.notDate')}}
 									@endif
 								</td>
 								<td class="en">
-									@if($Exam->dateTo!=null)
+									@if($Exam->is_unlimted!=1)
 										{{$Exam->dateTo}} {{$Exam->timeTo}}
 									@else
 										{{trans('myExams.notDate')}}

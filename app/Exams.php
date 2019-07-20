@@ -12,6 +12,6 @@ class Exams extends Authenticatable
         'dateTo', 'timeFrom', 'timeTo',
         'rand', 'showDegree','avil',
         'isTime', 'isPage', 'quesToShow',
-        'sections', 'isBack'
+        'sections', 'isBack', 'is_unlimted'
     ];
 }

@@ -31,13 +31,25 @@ class Exam extends Controller
 		$Validate = Validator::make($r->all(),[
 				'name' => 'required|unique:exams,name',
 				'show' => 'required',
-				'dateFrom' => 'required',
-				'dateTo' => 'required',
-				'timeFrom' => 'required',
-				'timeTo' => 'required',
+				'isUnlimted' => 'required',
+				'dateFrom' => 'required_if:isUnlimted,no',
+				'dateTo' => 'required_if:isUnlimted,no',
+				'timeFrom' => 'required_if:isUnlimted,no',
+				'timeTo' => 'required_if:isUnlimted,no',
 				'isTime' => 'required',
+				'time' => 'required_if:time,yes',
 				'page' => 'required',
+				'quesToShowSelect' => 'required_if:page,yes',
+				'quesToShow' => 'required_if:quesToShowSelect,yes',
+				'back' => 'required_if:page,yes',
+				'rand' => 'required_if:page,no',
 			]);
+		$is_unlimted = 0;
+		if ($r->input('isUnlimted')=='yes'){
+			$is_unlimted = 1;
+		}else{
+			$is_unlimted = 0;
+		}
 		$Rand = 0;
 		if ($r->input('rand')=='yes'){
 			$Rand = 1;
@@ -93,6 +105,7 @@ class Exam extends Controller
 				$addExam->isPage = $Page;
 				$addExam->quesToShow = $quesToShow;
 				$addExam->isBack = $Back;
+				$addExam->is_unlimted = $is_unlimted;
 			$addExam->save();
 			$idExam = $addExam->id;
 			/*$getMembers = Member::get();
@@ -175,13 +188,25 @@ class Exam extends Controller
 				],
 				'ques' => 'required',
 				'show' => 'required',
-				'dateFrom' => 'required',
-				'dateTo' => 'required',
-				'timeFrom' => 'required',
-				'timeTo' => 'required',
+				'isUnlimted' => 'required',
+				'dateFrom' => 'required_if:isUnlimted,no',
+				'dateTo' => 'required_if:isUnlimted,no',
+				'timeFrom' => 'required_if:isUnlimted,no',
+				'timeTo' => 'required_if:isUnlimted,no',
 				'isTime' => 'required',
-				'page' => 'required'
+				'time' => 'required_if:time,yes',
+				'page' => 'required',
+				'quesToShowSelect' => 'required_if:page,yes',
+				'quesToShow' => 'required_if:quesToShowSelect,yes',
+				'back' => 'required_if:page,yes',
+				'rand' => 'required_if:page,no',
 			]);
+		$is_unlimted = 0;
+		if ($r->input('isUnlimted')=='yes'){
+			$is_unlimted = 1;
+		}else{
+			$is_unlimted = 0;
+		}
 		$Rand = 0;
 		if ($r->input('rand')=='yes'){
 			$Rand = 1;
@@ -242,6 +267,7 @@ class Exam extends Controller
 			$getQuesAndExam->Exam->quesToShow = $quesToShow;
 			$getQuesAndExam->Exam->sections = $Sections;
 			$getQuesAndExam->Exam->isBack = $Back;
+			$getQuesAndExam->Exam->is_unlimted = $is_unlimted;
 			$getQuesAndExam->ques = $r->input('ques');
 			$getQuesAndExam->ans1 = $r->input('ans1');
 			$getQuesAndExam->ans2 = $r->input('ans2');

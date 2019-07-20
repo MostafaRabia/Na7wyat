@@ -27,21 +27,30 @@
 								<h5>{{trans('createExam.Name')}}</h5>
 								{!! Form::text('name','',['class'=>'validate']) !!}
 							</div>
-							<div class="input-field col s12"> 
-								<h5>{{trans('createExam.dateFrom')}}</h5>
-								<input type="text" class="datepicker" name='dateFrom'>
+							<div class="input-field col s12">
+								<select name="isUnlimted" id="isUnlimted">
+							      <option value="" disabled selected>هل تريد الامتحان بدون تاريخ؟</option>
+							      <option value="yes">{{trans('createExam.Yes')}}</option>
+							      <option value="no">{{trans('createExam.No')}}</option>
+							    </select>
 							</div>
-							<div class="input-field col s12"> 
-								<h5>{{trans('createExam.dateTo')}}</h5>
-								<input type="text" class="datepicker" name="dateTo">
-							</div>
-							<div class="input-field col s12"> 
-								<h5>{{trans('createExam.timeFrom')}}</h5>
-								<input type="text" class="timepicker" name="timeFrom">
-							</div>
-							<div class="input-field col s12"> 
-								<h5>{{trans('createExam.timeTo')}}</h5>
-								<input type="text" class="timepicker" name="timeTo">
+							<div style="display:none;" class='date'>
+								<div class="input-field col s12"> 
+									<h5>{{trans('createExam.dateFrom')}}</h5>
+									<input type="text" class="datepicker" name='dateFrom'>
+								</div>
+								<div class="input-field col s12"> 
+									<h5>{{trans('createExam.dateTo')}}</h5>
+									<input type="text" class="datepicker" name="dateTo">
+								</div>
+								<div class="input-field col s12"> 
+									<h5>{{trans('createExam.timeFrom')}}</h5>
+									<input type="text" class="timepicker" name="timeFrom">
+								</div>
+								<div class="input-field col s12"> 
+									<h5>{{trans('createExam.timeTo')}}</h5>
+									<input type="text" class="timepicker" name="timeTo">
+								</div>
 							</div>
 							<div class="input-field col s12">
 								<select name="isTime" id="isTime">

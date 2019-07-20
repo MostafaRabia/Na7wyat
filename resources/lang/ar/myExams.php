@@ -10,6 +10,6 @@ return [
 	'enterExam' => 'الدخول للامتحان',
 	'Ban' => 'BAN',
 	'enterAnswer' => 'رؤية الإجابات',
-	'notDate' => '----',
+	'notDate' => '∞',
 	'adminPanel' => 'لوحة التحكم',
 ];

@@ -1,4 +1,9 @@
 $(document).ready(function(){
+	if ($('#isUnlimted').val()=="no"){
+		$('.date').css('display','block');
+	}else{
+		$('.date').hide();
+	}
 	if ($('#isTime').val()=="yes"){
 		$('.time').css('display','block');
 	}else{
@@ -17,6 +22,14 @@ $(document).ready(function(){
 		$('.quesToShow').hide();
 		$('.back').css('display','none');
 	}
+
+	$('#isUnlimted').on('change',function(){
+		if ($(this).val()=="no"){
+			$('.date').css('display','block');
+		}else{
+			$('.date').hide();
+		}
+	});
 	$('.datepicker').pickadate();
 	$('.timepicker').pickatime({ampmclickable:false,twelvehour:false});
 	$('select').material_select();

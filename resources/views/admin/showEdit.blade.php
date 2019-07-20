@@ -40,14 +40,14 @@
 							<tr>
 								<td>{{$getExam->name}}</td>
 								<td class="en">
-									@if($Ques->Exam->dateFrom!=null)
+									@if($Ques->Exam->is_unlimted!=1)
 										{{$Ques->Exam->dateFrom}} {{$Ques->Exam->timeFrom}}
 									@else
 										{{trans('myExams.notDate')}}
 									@endif
 								</td>
 								<td class="en">
-									@if($Ques->Exam->dateTo!=null)
+									@if($Ques->Exam->is_unlimted!=1)
 										{{$Ques->Exam->dateTo}} {{$Ques->Exam->timeTo}}
 									@else
 										{{trans('myExams.notDate')}}
