@@ -50,9 +50,9 @@ Route::group(['middleware'=>'Islam'],function(){
 	Route::post('create/exam','Exam@createExam');
 	Route::post('create/exam/{id}','Exam@createQuesExam');
 	Route::post('notes/{id}','Exam@Notes');
+	Route::post('repeat/{idexam}/{iduser}','Exam@Repeat');
 });
 Route::group(['middleware'=>'Admin'],function(){
-	Route::get('artisans/{artisan}','Admins@Artisan');
 	Route::get('admin/panel','Admins@showAdminPanel');
 	Route::get('getusers/{token}','Admins@getUsers');
 	Route::get('admin/panel/exams','Admins@getExams');

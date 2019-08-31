@@ -14,7 +14,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="asideLeft col s12 left">
-				<h4>{{trans('Students.Header')}}({{count($getFinsh)}})</h4>
+				<h4>{{trans('Students.Header')}}(<span class='count'>{{count($getFinsh)}}</span>)</h4>
 				<table id="example" style="width:100%">
 					<thead>
 						<tr>
@@ -23,6 +23,7 @@
 							<th>{{trans('Students.showAns')}}</th>
 							<th>وقت الدخول</th>
 							<th>وقت الانتهاء</th>
+							<th>إعادة الامتحان</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -40,6 +41,11 @@
 								</td>
 								<td style="direction:ltr;">{{$Finish->created_at}}</td>
 								<td style="direction:ltr;">{{$Finish->updated_at}}</td>
+								<td>
+									<a class="btn-floating waves-effect waves-light orange darken-4 repeat" href="{{url('repeat')}}/{{$id}}/{{$Finish->User->id}}" token={{csrf_token()}}>
+										<i class="material-icons">send</i>
+									</a>
+								</td>
 							</tr>
 						@endforeach
 					</tbody>

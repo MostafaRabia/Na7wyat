@@ -431,4 +431,9 @@ class Exam extends Controller
 		Results::where('id_exam',$id)->delete();
 		return redirect('exams');
 	}
+	public function Repeat($idExam,$idUser){
+		Results::where('id_exam',$idExam)->where('id_user',$idUser)->delete();
+		$idUserPerm = Users::find($idUser)->id_user;
+		Permission::where('id_exam',$idExam)->where('id_user',$idUserPerm)->delete();
+	}
 }
