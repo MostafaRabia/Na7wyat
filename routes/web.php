@@ -50,7 +50,7 @@ Route::group(['middleware'=>'Islam'],function(){
 	Route::post('create/exam','Exam@createExam');
 	Route::post('create/exam/{id}','Exam@createQuesExam');
 	Route::post('notes/{id}','Exam@Notes');
-	Route::post('repeat/{idexam}/{iduser}','Exam@Repeat');
+	Route::any('repeat/{idexam}/{iduser}','Exam@Repeat');
 });
 Route::group(['middleware'=>'Admin'],function(){
 	Route::get('admin/panel','Admins@showAdminPanel');
