@@ -34,7 +34,7 @@ class Processing extends Controller
         }else{
             $checkIfExist = Process::where('id_user',auth()->user()->id)->first();
             if ($checkIfExist){
-                $checkIfTelegramExist = Process::where('id_user',auth()->user()->id)->where('id_telegram',$checkIfExist->id_telegram)->get();
+                $checkIfTelegramExist = Process::where('id_telegram',$checkIfExist->id_telegram)->get();
                 if (count($checkIfTelegramExist)>1){
                     $activity = Telegram::getUpdates();
                     $array = array_reverse(json_decode(json_encode($activity),true));
