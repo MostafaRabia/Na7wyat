@@ -34,7 +34,33 @@ class Processing extends Controller
         }else{
             $checkIfExist = Process::where('id_user',auth()->user()->id)->first();
             if ($checkIfExist){
-                
+                $checkIfTelegramExist = Process::where('id_user',auth()->user()->id)->where('id_telegram',$checkIfExist->id_telegram)->get();
+                if (count($checkIfTelegramExist)>1){
+                    $activity = Telegram::getUpdates();
+                    $array = array_reverse(json_decode(json_encode($activity),true));
+                    $i = 0;
+                    $c = 0;
+                    foreach($array as $active){
+                        $i++;
+                        $chatID = $active['message']['chat']['id'];
+                        $name = $active['message']['chat']['first_name'];
+                        if ($name==$r->name){
+                            $c++;
+                            if ($c==1){
+                                continue;
+                            }
+                            $check = Process::where('id_telegram',$chatID)->first();
+                            if ($check){
+                                continue;
+                            }
+                            $new->id_telegram = $chatID;
+                            break;
+                        }
+                        if ($i==count($array)){
+                            return 'errorName';
+                        }
+                    }
+                }
                 $new = $checkIfExist;
             }else{
                 $new = new Process;
