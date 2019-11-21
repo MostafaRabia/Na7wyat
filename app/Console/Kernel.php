@@ -5,6 +5,12 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Exams;
+use App\Process;
+use App\Messages;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Telegram\Bot\Laravel\Facades\Telegram;
+use File;
 
 class Kernel extends ConsoleKernel
 {
@@ -48,8 +54,35 @@ class Kernel extends ConsoleKernel
                 }
 	        }
         });
+        $schedule->call(function(){
+        	$date = Carbon::parse(Carbon::now());
+            $getProcess = Process::chunk(50,function($process50) use ($date){
+                foreach($process50 as $process){
+                    if ($process->date==$date->dayOfWeek){
+                        $message = Messages::where('for_weak',$process->weak)->inRandomOrder()->first();
+                        Telegram::sendMessage([
+                            'chat_id' => $process->id_telegram,
+                            'text' => $message->message,
+                        ]);
+                    }
+                }
+            });
+        })->daily()->between('18:00','20:00');
         $schedule->command('optimize:clear')->daily();
         $schedule->command('optimize')->daily();
+        $schedule->call(function(){
+            $files = Storage::disk('backup')->files('Na7wyat');
+            Storage::disk('backup')->delete($files);
+        })->daily();
+        $schedule->command('backup:run',['--only-db'])->daily();
+        $schedule->call(function(){
+            $files = Storage::disk('backup')->files('Na7wyat');
+            $file = explode('/',$files[0]);
+            $filename = $file[1];
+            $filePath = public_path('backup/Na7wyat/'.$filename);
+            $fileData = File::get($filePath);
+            Storage::cloud()->put($filename,$fileData);
+        })->daily();
     }
 
     /**

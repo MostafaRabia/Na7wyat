@@ -20,6 +20,7 @@
 						<tr>
 							<th>{{trans('Students.Username')}}</th>
 							<th>{{trans('Students.Result')}}</th>
+							<th>إعادته</th>
 							<th>{{trans('Students.showAns')}}</th>
 							<th>وقت الدخول</th>
 							<th>وقت الانتهاء</th>
@@ -34,7 +35,7 @@
 							<tr>
 								<td>{{$Finish->User->username}}</a></td>
 								<td style="direction:ltr;">{{$getResults}}/{{$getQues}}</td>
-								<td>
+								<td style="direction:ltr;">{{$Finish->realoded}}</td>	<td>
 									<a class="btn-floating waves-effect waves-light teal lighten-1" href="{{url('results/exam')}}/{{$id}}/{{$Finish->User->id}}">
 										<i class="material-icons">send</i>
 									</a>

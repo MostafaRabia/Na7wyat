@@ -20,16 +20,19 @@ class Profile extends Controller
 	public function showEnterExam($Name){
 		$getId = Exams::where('name',$Name)->first();
 		$getPermission = Permission::where('id_exam',$getId->id)->where('id_user',auth()->user()->id_user)->first();
-		if ($getPermission){}else{
+		if ($getPermission){
+			$addPermissiin = $getPermission;
+			$addPermissiin->realoded = $getPermission->realoded + 1;
+		}else{
 			$addPermissiin = new Permission;
-				$addPermissiin->id_exam = $getId->id;
-				$addPermissiin->id_user = auth()->user()->id_user;
-				$addPermissiin->complete = 0;
-				$addPermissiin->finish = 0;
-				$addPermissiin->ban = 0;
-			$addPermissiin->save();
-			$getPermission = Permission::where('id_exam',$getId->id)->where('id_user',auth()->user()->id_user)->first();
 		}
+			$addPermissiin->id_exam = $getId->id;
+			$addPermissiin->id_user = auth()->user()->id_user;
+			$addPermissiin->complete = 0;
+			$addPermissiin->finish = 0;
+			$addPermissiin->ban = 0;
+		$addPermissiin->save();
+		$getPermission = $addPermissiin;
 		$countQues = Ques::where('id_exam',$getId->id)->count();
 		$getResults = [];
 		if ($getId->isBack==1){

@@ -44,9 +44,11 @@
                         <li><a href="{{url('admin/panel')}}">{{trans('myExams.adminPanel')}}</a></li>
                     @elseif(auth()->check()&&auth()->user()->admin==0||auth()->user()->admin==2)
                         <li><a href="{{url('profile/myexams')}}">{{trans('myExams.myExams')}}</a></li>
+                        <li><a href="{{url('profile/processing')}}">نظام المتابعة</a></li>
                     @elseif(auth()->check()&&auth()->user()->admin==1)
                         <li><a href="{{url('exams')}}">{{trans('Header.Exam')}}</a></li>
                         <li><a href="{{url('create/exam')}}">{{trans('Header.createExam')}}</a></li>
+                        <li><a href="{{url('admin/show/messages')}}">رؤية الرسائل</a></li>
                     @endif
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
@@ -57,9 +59,11 @@
                         <li><a href="{{url('admin/panel')}}">{{trans('myExams.adminPanel')}}</a></li>
                     @elseif(auth()->check()&&auth()->user()->admin==0||auth()->user()->admin==2)
                         <li><a href="{{url('profile/myexams')}}">{{trans('myExams.myExams')}}</a></li>
+                        <li><a href="{{url('profile/processing')}}">نظام المتابعة</a></li>
                     @elseif(auth()->check()&&auth()->user()->admin==1)
                         <li><a href="{{url('exams')}}">{{trans('Header.Exam')}}</a></li>
                         <li><a href="{{url('create/exam')}}">{{trans('Header.createExam')}}</a></li>
+                        <li><a href="{{url('admin/show/messages')}}">رؤية الرسائل</a></li>
                     @endif
                 </ul>
             </div>

@@ -34,6 +34,7 @@
 							<th>{{trans('myExams.To')}}</th>
 							<th>{{trans('myExams.countQue')}}</th>
 							<th>{{trans('myExams.Result')}}</th>
+							<th>إعادته</th>
 							<th>{{trans('myExams.enterExam')}}</th>
 							<th>{{trans('myExams.enterAnswer')}}</th>
 						</tr>
@@ -66,30 +67,22 @@
 								<td>{{$countQues}}</td>
 								<td style="direction:ltr;">
 								@if ($getPermission)
-									@if ($Exam->isBack==1&&$getPermission->finish==0&&$getAns>0) {{trans('Results.notFinish')}} @else {{$countAns}}/{{$countDegrees}} @endif
+									@if ($Exam->isBack==1&&$getAns>0) {{trans('Results.notFinish')}} @else {{$countAns}}/{{$countDegrees}} @endif
 								@else
 									 {{$countAns}}/{{$countDegrees}}
 								@endif
 								</td>
 								<td>
 									@if ($getPermission)
-										@if ($Exam->avil==1&&$getPermission->finish==0)
-											<a class="btn-floating waves-effect waves-light teal lighten-1" onclick="$('#modal1').modal();$('#modal1').modal('open');$('.enter-modal').attr('href',$(this).attr('href'));return false;" href="{{url('exam')}}/{{$Exam->name}}">
-												<i class="material-icons">send</i>
-											</a>
-										@endif
-										@if ($getAns>0&&$getPermission->finish==0)
-										 	<a class="btn-floating waves-effect waves-light teal lighten-1" onclick="$('#modal1').modal();$('#modal1').modal('open');$('.enter-modal').attr('href',$(this).attr('href'));return false;" href="{{url('exam')}}/{{$Exam->name}}">
-												<i class="material-icons">send</i>
-											</a>
-										@endif
+										{{$getPermission->realoded}}
 									@else
-										@if ($Exam->avil==1)
-											<a class="btn-floating waves-effect waves-light teal lighten-1" onclick="$('#modal1').modal();$('#modal1').modal('open');$('.enter-modal').attr('href',$(this).attr('href'));return false;" href="{{url('exam')}}/{{$Exam->name}}">
-												<i class="material-icons">send</i>
-											</a>
-										@endif
+										0
 									@endif
+								</td>
+								<td>
+									<a class="btn-floating waves-effect waves-light teal lighten-1" onclick="$('#modal1').modal();$('#modal1').modal('open');$('.enter-modal').attr('href',$(this).attr('href'));return false;" href="{{url('exam')}}/{{$Exam->name}}">
+										<i class="material-icons">send</i>
+									</a>
 								</td>
 								<td>
 									@if ($getPermission)

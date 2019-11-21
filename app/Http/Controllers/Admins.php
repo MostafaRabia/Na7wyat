@@ -8,6 +8,7 @@ use App\Exams;
 use App\Permission;
 use App\Member;
 use App\Ques;
+use App\Messages;
 use Validator;
 use Facebook;
 use Artisan;
@@ -149,5 +150,71 @@ class Admins extends Controller
 				return 'addUser';
 			}
 		}
+	}
+
+	public function showMessages(){
+		$showMessages = Messages::get();
+		app()->singleton('Title',function(){
+			return 'رؤية رسائل'.' | '.trans('Titles.nameOfWebSite');
+		});
+        return view(app('admin').'.showMessages',['showMessages'=>$showMessages]);
+	}
+
+	public function showAddMessage(){
+		app()->singleton('Title',function(){
+			return 'اضافة رسائل'.' | '.trans('Titles.nameOfWebSite');
+		});
+        return view(app('admin').'.addMessage');
+	}
+
+	public function addMessage(Request $r){
+		$Validate = Validator::make($r->all(),[
+			'message' => 'required',
+			'weak' => 'required',
+		]);
+		if ($Validate->fails()){
+
+		}else{
+			$new = new Messages;
+				$new->message = $r->message;
+				$new->for_weak = $r->weak;
+			$new->save();
+			return 'done';
+		}
+	}
+
+	public function showEditMessage($id){
+		$getMessage = Messages::find($id);
+
+		app()->singleton('Title',function(){
+			return 'تعديل الرسالة'.' | '.trans('Titles.nameOfWebSite');
+		});
+        return view(app('admin').'.editMessage',['getMessage'=>$getMessage]);
+	}
+
+	public function editMessage(Request $r,$id){
+		$exist = Messages::find($id);
+		if ($exist){
+			$new = $exist;
+		}else{
+			return redirect()->back()->with(['error'=>'غير موجودة.']);
+		}
+		$Validate = Validator::make($r->all(),[
+			'message' => 'required',
+			'weak' => 'required',
+		]);
+		if ($Validate->fails()){
+			return redirect()->back()->withInput()->withError($Validate);
+		}else{
+				$new->message = $r->message;
+				$new->for_weak = $r->weak;
+			$new->save();
+			return redirect('admin/show/messages');
+		}
+	}
+
+	public function deleteMessage($id){
+		Messages::where('id',$id)->delete();
+		return redirect()->back();
 	}
 }

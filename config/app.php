@@ -178,6 +178,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Telegram\Bot\Laravel\TelegramServiceProvider::class,
+        App\Providers\GoogleDriveServiceProvider::class,
+
     ],
 
     /*
@@ -229,6 +232,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Telegram' => Telegram\Bot\Laravel\Facades\Telegram::class,
     ],
 
 ];

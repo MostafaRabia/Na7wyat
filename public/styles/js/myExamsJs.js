@@ -7,4 +7,11 @@ $(document).ready(function(){
         "lengthChange": false,
         "pageLength": 10
     });
+
+    $('.button').on('click',function(){
+        $.ajax({
+            url: $(this).attr('url'),
+            type: "post",
+        });
+    });
 });

@@ -7,11 +7,12 @@
 {!! Html::script(app('js').'/jquery.dataTables.min.js') !!}
 {!! Html::script(app('js').'/dataTables.rowReorder.min.js') !!}
 {!! Html::script(app('js').'/dataTables.responsive.min.js') !!}
-{!! Html::script(app('js').'/myExamsJs.min.js') !!}
+{!! Html::script(app('js').'/myExamsJs.js') !!}
 <!-- Start Section Page -->
 <section class="pageSection">
 	<div class="container">
 		<div class="row">
+		<button class='button' url="{{url('test')}}">click</button>
 			<div class="asideLeft col s12 left">
 				<h4>{{trans('Exam.Exams')}}</h4>
 				<table id="example" style="width:100%">
