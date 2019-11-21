@@ -1,6 +1,6 @@
 @extends(app('users').'.Index')
 @section('center')
-    {!! Html::style(app('css').'/showProcess.css') !!}
+    {!! Html::style(app('css').'/showProcessPage.css') !!}
 	<!-- Start Section Info -->
 	<section class="infoSection">
 		<div class="container">
