@@ -34,6 +34,7 @@ class Processing extends Controller
         }else{
             $checkIfExist = Process::where('id_user',auth()->user()->id)->first();
             if ($checkIfExist){
+                
                 $new = $checkIfExist;
             }else{
                 $new = new Process;
