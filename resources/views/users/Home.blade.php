@@ -12,7 +12,7 @@
 	<div id="modal1" class="modal">
 		<div class="modal-content">
 			<h4>{{trans('Modal.h4Modal')}}</h4>
-			<p>{{session()->get('pModal')}}</p>
+			<p>{!!session()->get('pModal')!!}</p>
 		</div>
 	</div>
 	<!-- End Modal -->

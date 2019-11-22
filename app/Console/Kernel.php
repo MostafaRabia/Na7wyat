@@ -58,7 +58,7 @@ class Kernel extends ConsoleKernel
         	$date = Carbon::parse(Carbon::now());
             $getProcess = Process::chunkById(50,function($process50) use ($date){
                 foreach($process50 as $process){
-                    if ($process->date==$date->dayOfWeek){
+                    if ($process->date==$date->dayOfWeek||$process->date2==$date->dayOfWeek){
                         $message = Messages::where('for_weak',$process->weak)->inRandomOrder()->first();
                         if ($message){
                             Telegram::sendMessage([
@@ -66,7 +66,13 @@ class Kernel extends ConsoleKernel
                                 'text' => $message->message,
                             ]);
                         }
-                        $process->update(['weak'=>$process->weak+1]);
+                        if ($process->date2>$process->date){
+                            if ($process->date2==$date->dayOfWeek){
+                                $process->update(['weak'=>$process->weak+1]);
+                            }
+                        }else{
+                            $process->update(['weak'=>$process->weak+1]);
+                        }
                     }
                 }
             });

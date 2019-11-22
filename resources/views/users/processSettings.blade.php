@@ -10,12 +10,12 @@
                     {!! Form::open(['url'=>'profile/processing/settings','method'=>'post','class'=>'subscribeForm']) !!}
                         <div class="input-field col s12"> 
                             <h5>اسمك الأول على تليجرام -يرجى كتابته هو هو-</h5>
-                            {!! Form::text('name','',['class'=>'validate']) !!}
+                            {!! Form::text('name',optional(auth()->user()->Telegram)->name,['class'=>'validate']) !!}
                         </div>
 
 						<div class="input-field col s12"> 
                             <h5>الأسبوع الذي وصلت له</h5>
-                            {!! Form::number('weak','',['class'=>'validate']) !!}
+                            {!! Form::number('weak',optional(auth()->user()->Telegram)->weak,['class'=>'validate','min'=>1]) !!}
                         </div>
 
                         <div class="input-field col s12"> 
@@ -23,13 +23,29 @@
                             <div class="input-field col s12">
 								<select name="date">
 							      <option value="" disabled selected>اختر يومًا</option>
-							      <option value="6">السبت</option>
-							      <option value="0">الأحد</option>
-							      <option value="1">الإثنين</option>
-							      <option value="2">الثلاثاء</option>
-							      <option value="3">الأربعاء</option>
-							      <option value="4">الخميس</option>
-							      <option value="5">الجمعة</option>
+							      <option value="0" @if(optional(auth()->user()->Telegram)->date==0) selected @endif>الأحد</option>
+							      <option value="1" @if(optional(auth()->user()->Telegram)->date==1) selected @endif>الإثنين</option>
+							      <option value="2" @if(optional(auth()->user()->Telegram)->date==2) selected @endif>الثلاثاء</option>
+							      <option value="3" @if(optional(auth()->user()->Telegram)->date==3) selected @endif>الأربعاء</option>
+							      <option value="4" @if(optional(auth()->user()->Telegram)->date==4) selected @endif>الخميس</option>
+							      <option value="5" @if(optional(auth()->user()->Telegram)->date==5) selected @endif>الجمعة</option>
+								  <option value="6" @if(optional(auth()->user()->Telegram)->date==6) selected @endif>السبت</option>
+							    </select>
+							</div>
+                        </div>
+
+						<div class="input-field col s12"> 
+                            <h5>متى تريد أن تُذكَر؟ -اليوم الثاني-</h5>
+                            <div class="input-field col s12">
+								<select name="date2">
+							      <option value="" disabled selected>اختر يومًا</option>
+							      <option value="0" @if(optional(auth()->user()->Telegram)->date==0) selected @endif>الأحد</option>
+							      <option value="1" @if(optional(auth()->user()->Telegram)->date==1) selected @endif>الإثنين</option>
+							      <option value="2" @if(optional(auth()->user()->Telegram)->date==2) selected @endif>الثلاثاء</option>
+							      <option value="3" @if(optional(auth()->user()->Telegram)->date==3) selected @endif>الأربعاء</option>
+							      <option value="4" @if(optional(auth()->user()->Telegram)->date==4) selected @endif>الخميس</option>
+							      <option value="5" @if(optional(auth()->user()->Telegram)->date==5) selected @endif>الجمعة</option>
+								  <option value="6" @if(optional(auth()->user()->Telegram)->date==6) selected @endif>السبت</option>
 							    </select>
 							</div>
                         </div>

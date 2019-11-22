@@ -87,6 +87,7 @@ class Processing extends Controller
                 $new->id_user = auth()->user()->id;
                 $new->name = $r->name;
                 $new->date = $r->date;
+                $new->date2 = $r->date2;
                 $new->weak = $r->weak;
             $new->save();
             return 'done';

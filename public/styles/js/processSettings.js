@@ -6,6 +6,10 @@ $(document).ready(function(){
 	},10000);
 
     $('.subscribe').on('click',function(){
+		if ($('.invalid').hasClass('invalid')){
+			Materialize.toast('الأسبوع يبدأ من 1', 2000);
+			return false;
+		}
 		var element = this;
         var href = $('.subscribeForm').attr('action');
         var hrefSuccess = $(element).attr('href');
