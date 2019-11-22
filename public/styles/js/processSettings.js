@@ -1,5 +1,6 @@
 $(document).ready(function(){
-    $('select').material_select();
+	$('select').material_select();
+	$('.timepicker').pickatime({ampmclickable:false,twelvehour:false});
 
 	setInterval(function(){
 		$('.check').removeClass('disabled');

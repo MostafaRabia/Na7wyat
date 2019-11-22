@@ -9,7 +9,8 @@ class Process extends Authenticatable
     protected $table = 'process';
     protected $fillable = [
         'id_user', 'id_telegram', 'name',
-        'date', 'weak', 'date2'
+        'date', 'weak', 'date2',
+        'time'
     ];
 
     public function User(){

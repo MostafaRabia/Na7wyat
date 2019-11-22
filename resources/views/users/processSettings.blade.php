@@ -50,6 +50,11 @@
 							</div>
                         </div>
 
+						<div class="input-field col s12"> 
+							<h5>الوقت الذي تريد أن تُذكًّر فيه.</h5>
+							<input type="text" class="timepicker" value="{{optional(auth()->user()->Telegram)->time}}" name="time">
+						</div>
+
                         <div class="input-field col s12">
                             <button class="btn waves-effect waves-light subscribe" type="submit" href="{{url('/')}}">	 اشترك
                                 <i class="material-icons right">send</i>
