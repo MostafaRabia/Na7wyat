@@ -76,7 +76,7 @@ class Kernel extends ConsoleKernel
                     }
                 }
             });
-        })->daily()->between('18:00','20:00');
+        })->everyMinute();
         $schedule->command('optimize:clear')->daily();
         $schedule->command('optimize')->daily();
         $schedule->call(function(){
