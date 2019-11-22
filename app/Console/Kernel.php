@@ -56,18 +56,21 @@ class Kernel extends ConsoleKernel
         });
         $schedule->call(function(){
         	$date = Carbon::parse(Carbon::now());
-            $getProcess = Process::chunk(50,function($process50) use ($date){
+            $getProcess = Process::chunkById(50,function($process50) use ($date){
                 foreach($process50 as $process){
                     if ($process->date==$date->dayOfWeek){
                         $message = Messages::where('for_weak',$process->weak)->inRandomOrder()->first();
-                        Telegram::sendMessage([
-                            'chat_id' => $process->id_telegram,
-                            'text' => $message->message,
-                        ]);
+                        if ($message){
+                            Telegram::sendMessage([
+                                'chat_id' => $process->id_telegram,
+                                'text' => $message->message,
+                            ]);
+                        }
+                        $process->update(['weak'=>$process->weak+1]);
                     }
                 }
             });
-        })->daily()->between('18:00','20:00');
+        });
         $schedule->command('optimize:clear')->daily();
         $schedule->command('optimize')->daily();
         $schedule->call(function(){
