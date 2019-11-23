@@ -13,6 +13,7 @@
         {!! Html::script(app('js').'/jquery.js') !!}
         {!! Html::script(app('js').'/materialize.min.js') !!}
         {!! Html::script(app('js').'/headerJs.min.js') !!}
+        <script data-ad-client="ca-pub-7044387917647552" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
      </head>
 <body style="overflow: hidden;">
     <!-- Start Section Loader -->
