@@ -71,6 +71,8 @@ class Kernel extends ConsoleKernel
                             if ($process->date2==$date->dayOfWeek){
                                 $process->update(['weak'=>$process->weak+1]);
                             }
+                        }else if ($process->date2==$process->date){
+                            $process->update(['weak'=>$process->weak+1]);
                         }else{
                             if ($process->date2<$process->date){
                                 if ($process->date==$date->dayOfWeek){
@@ -81,7 +83,7 @@ class Kernel extends ConsoleKernel
                     }
                 }
             });
-        })->everyMinute();
+        });
         $schedule->command('optimize:clear')->daily();
         $schedule->command('optimize')->daily();
         $schedule->call(function(){
