@@ -72,7 +72,11 @@ class Kernel extends ConsoleKernel
                                 $process->update(['weak'=>$process->weak+1]);
                             }
                         }else{
-                            $process->update(['weak'=>$process->weak+1]);
+                            if ($process->date2<$process->date){
+                                if ($process->date==$date->dayOfWeek){
+                                    $process->update(['weak'=>$process->weak+1]);
+                                }
+                            }
                         }
                     }
                 }
