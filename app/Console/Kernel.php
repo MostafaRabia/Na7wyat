@@ -83,7 +83,7 @@ class Kernel extends ConsoleKernel
                     }
                 }
             });
-        });
+        })->everyMinute();
         $schedule->command('optimize:clear')->daily();
         $schedule->command('optimize')->daily();
         $schedule->call(function(){
