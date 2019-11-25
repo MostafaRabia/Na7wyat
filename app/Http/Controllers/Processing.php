@@ -28,7 +28,6 @@ class Processing extends Controller
             'name' => 'required',
             'date' => 'required',
             'weak' => 'required',
-            'time' => 'required',
         ]);
         if ($Validate->fails()){
 			return 'error';
@@ -90,7 +89,9 @@ class Processing extends Controller
                 $new->date = $r->date;
                 $new->date2 = $r->date2;
                 $new->weak = $r->weak;
-                $new->time = $r->time;
+                if ($r->has('time')){
+                    $new->time = $r->time;
+                }
             $new->save();
             return 'done';
         }
