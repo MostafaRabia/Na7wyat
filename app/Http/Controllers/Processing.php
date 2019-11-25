@@ -89,7 +89,7 @@ class Processing extends Controller
                 $new->date = $r->date;
                 $new->date2 = $r->date2;
                 $new->weak = $r->weak;
-                if ($r->has('time')){
+                if ($r->filled('time')){
                     $new->time = $r->time;
                 }
             $new->save();
