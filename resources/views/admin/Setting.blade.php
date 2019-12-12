@@ -65,6 +65,13 @@
 						<i class="material-icons">send</i>
 					</a>
 				</h5>
+
+				<h5>
+					استخرجه كوورد:
+					<a class="btn-floating waves-effect waves-light light-blue lighten-2" href="{{url('word/')}}/{{$getExam->id}}">
+						<i class="material-icons">send</i>
+					</a>
+				</h5>
 			</div>
 		</div>
 	</div>

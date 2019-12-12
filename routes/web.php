@@ -11,8 +11,6 @@
 |
 */
 
-Route::post('test','Test@test');
-
 Route::get('/','Index@Home');
 Route::get('task','Admins@Task');
 Route::get('logout','Index@Logout');
@@ -61,6 +59,7 @@ Route::group(['middleware'=>'Islam'],function(){
 	Route::get('admin/add/message','Admins@showAddMessage');
 	Route::get('admin/edit/message/{id}','Admins@showEditMessage');
 	Route::get('admin/delete/message/{id}','Admins@deleteMessage');
+	Route::get('word/{id}','Word@Export');
 
 	Route::post('edit/exam/question/{id}','Exam@editExam');
 	Route::post('create/exam','Exam@createExam');

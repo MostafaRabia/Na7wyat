@@ -14,4 +14,8 @@ class Exams extends Authenticatable
         'isTime', 'isPage', 'quesToShow',
         'sections', 'isBack', 'is_unlimted'
     ];
+
+    public function Ques(){
+        return $this->hasMany('App\Ques','id_exam');
+    }
 }
