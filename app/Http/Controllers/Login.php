@@ -11,8 +11,7 @@ use Auth;
 class Login extends Controller
 {
 	public function Redirect(){
-		Auth::loginUsingId(5);
-		//return Socialite::driver('facebook')->redirect();
+		return Socialite::driver('facebook')->redirect();
 	}
 	public function Callback(){
 		$userProvide = Socialite::driver('facebook')->user();
