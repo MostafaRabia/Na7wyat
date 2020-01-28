@@ -26,7 +26,7 @@
 					<p class="flow-text">{!!trans('Home.Login')!!}</p>
 					<p class="flow-text">{{trans('Home.examNow')}} @if($getExams) <a href='{{url("exam/".$getExams->name)}}'>{{$getExams->name}}</a> @else {{trans('Home.noExam')}} @endif</p>
 					<p class="flow-text">{!!trans('Home.Rules')!!}</ul></p>
-					<h4>تطبيق للموقع للأندرويد: <a href="{{url(public_path('نحويات.apk'))}}" download>تحميل</a></h4>
+					<h4>تطبيق للموقع للأندرويد: <a href="{{url('public/نحويات.apk')}}" download>تحميل</a></h4>
 					<img src="{{app('image')}}/home.png" />
 				</div>
 			</div>
