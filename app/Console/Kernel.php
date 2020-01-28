@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-    	$Today = date_create('now');
+    	/*$Today = date_create('now');
         $getExams = Exams::get();
         $schedule->call(function() use ($getExams,$Today){
         	foreach ($getExams as $Exam){
@@ -53,7 +53,7 @@ class Kernel extends ConsoleKernel
                     }
                 }
 	        }
-        });
+        });*/
         $schedule->call(function(){
             $date = Carbon::parse(Carbon::now());
             $getProcess = Process::chunkById(50,function($process50) use ($date){
