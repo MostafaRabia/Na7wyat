@@ -85,7 +85,8 @@ class Kernel extends ConsoleKernel
                 }
             });
         })->everyMinute()->name('send')->withoutOverlapping()->runInBackground();;
-        DB::disconnect('nawyatc1_na7wyat');
+        DB::disconnect();
+        
         $schedule->call(function(){
             $files = Storage::disk('backup')->files('Na7wyat');
             Storage::disk('backup')->delete($files);
